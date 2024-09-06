@@ -1,12 +1,11 @@
 import { notFound } from "next/navigation";
 import { CustomMDX } from "app/components/mdx";
-import { getBlogPosts } from "app/blog/utils";
 import { baseUrl } from "app/sitemap";
-import Image from "next/image";
 import { formatDate } from "app/utils";
+import { getWorkPosts } from "../utils";
 
 export const generateStaticParams = async () => {
-  const posts = getBlogPosts();
+  const posts = getWorkPosts();
 
   return posts.map((post) => ({
     slug: post.slug,
@@ -14,7 +13,7 @@ export const generateStaticParams = async () => {
 };
 
 export const generateMetadata = ({ params }) => {
-  const post = getBlogPosts().find((post) => post.slug === params.slug);
+  let post = getWorkPosts().find((post) => post.slug === params.slug);
   if (!post) {
     return;
   }
@@ -37,7 +36,7 @@ export const generateMetadata = ({ params }) => {
       description,
       type: "article",
       publishedTime,
-      url: `${baseUrl}/blog/${post.slug}`,
+      url: `${baseUrl}/work/${post.slug}`,
       images: [
         {
           url: ogImage,
@@ -53,8 +52,8 @@ export const generateMetadata = ({ params }) => {
   };
 };
 
-const BlogDetail: React.Page<{ slug: string }> = ({ params }) => {
-  const post = getBlogPosts().find((post) => post.slug === params.slug);
+const WorkDetail: React.Page<{ slug: string }> = ({ params }) => {
+  const post = getWorkPosts().find((post) => post.slug === params.slug);
 
   if (!post) {
     notFound();
@@ -68,15 +67,15 @@ const BlogDetail: React.Page<{ slug: string }> = ({ params }) => {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            headline: post.metadata.title,
+            "@type": "WorkPosting",
+            // headline: post.metadata.title,
             datePublished: post.metadata.publishedAt,
             dateModified: post.metadata.publishedAt,
             description: post.metadata.summary,
             image: post.metadata.image
               ? `${baseUrl}${post.metadata.image}`
               : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-            url: `${baseUrl}/blog/${post.slug}`,
+            url: `${baseUrl}/work/${post.slug}`,
             author: {
               "@type": "Person",
               name: "My Portfolio",
@@ -114,5 +113,4 @@ const BlogDetail: React.Page<{ slug: string }> = ({ params }) => {
     </section>
   );
 };
-
-export default BlogDetail;
+export default WorkDetail;
