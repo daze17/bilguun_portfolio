@@ -10,6 +10,9 @@ const navItems = {
   "/blog": {
     name: "blog",
   },
+  "/album": {
+    name: "album",
+  },
   "/contact": {
     name: "contact",
   },

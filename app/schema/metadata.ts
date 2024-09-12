@@ -3,4 +3,5 @@ export type Metadata = {
   publishedAt: string;
   summary: string;
   image?: string;
+  stacks?: string;
 };

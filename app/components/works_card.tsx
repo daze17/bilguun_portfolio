@@ -10,6 +10,7 @@ type Props = {
   };
 };
 export const WorksCard: React.FC<Props> = ({ post }) => {
+  const stacks = post.metadata.stacks?.split(",");
   return (
     <Link key={post.slug} className="mb-4" href={`/work/${post.slug}`}>
       <div className="flex flex-col gap-2">
@@ -31,6 +32,14 @@ export const WorksCard: React.FC<Props> = ({ post }) => {
           <p className="text-neutral-600 text-sm dark:text-neutral-400 tabular-nums">
             {post.metadata.summary}
           </p>
+          <div className="flex gap-2">
+            {stacks &&
+              stacks.map((stack, index) => (
+                <div key={index} className="">
+                  {stack}
+                </div>
+              ))}
+          </div>
         </div>
       </div>
     </Link>
