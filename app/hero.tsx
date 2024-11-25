@@ -1,5 +1,6 @@
 import { FlipWords } from "app/components/ui/flip_words";
 import { cn } from "./utils";
+import Image from "next/image";
 
 const HeroFlipWords: React.FC = () => {
   const words = ["creative", "efficient", "passionate", "dedicated"];
@@ -12,7 +13,13 @@ const HeroFlipWords: React.FC = () => {
           "dark:text-neutral-400",
         )}
       >
-        <h2 className="text-4xl lg:text-7xl">Hi. I'm Bilguun 👋</h2>
+        <p className="flex">
+          <h2 className="text-4xl lg:text-7xl">
+            Hi. I'm{" "}
+            <span className="font-['Open_Sans'] font-bold">Bilguun</span>
+          </h2>
+          <Image src="/heart.svg" alt="heart" width={50} height={50} />
+        </p>
         a developer who is <FlipWords words={words} />
       </div>
     </div>
