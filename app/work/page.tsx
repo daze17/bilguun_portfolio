@@ -10,7 +10,7 @@ const WorksPage: React.Page = () => {
   let allWorks = getWorkPosts();
 
   return (
-    <section className="min-h-[calc(100dvh-140px)] antialiased max-w-4xl mx-4 lg:mx-auto lg:py-12">
+    <section className="min-h-[calc(100dvh-210px)] antialiased max-w-4xl mx-4 lg:mx-auto lg:py-12">
       <h1 className="font-semibold text-2xl my-4 tracking-tighter">Works</h1>
       <div className="grid gap-5 md:grid-cols-3 md:gap-10">
         {allWorks

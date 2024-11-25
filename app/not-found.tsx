@@ -1,6 +1,6 @@
 const NotFound: React.Page = () => {
   return (
-    <section className="w-full h-[calc(100dvh-140px)] max-w-4xl mx-4 flex flex-col justify-center lg:mx-auto">
+    <section className="w-full h-[calc(100dvh-210px)] max-w-4xl mx-4 flex flex-col justify-center lg:mx-auto">
       <h1 className="mb-8 text-2xl  font-semibold tracking-tighter">
         404 - Page Not Found
       </h1>

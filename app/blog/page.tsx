@@ -10,7 +10,7 @@ export const metadata = {
 const BlogListPage = () => {
   const allBlogs = getBlogPosts();
   return (
-    <section className="min-h-[calc(100dvh-140px)] antialiased max-w-4xl mx-4 lg:mx-auto lg:py-12">
+    <section className="min-h-[calc(100dvh-210px)] antialiased max-w-4xl mx-4 lg:mx-auto lg:py-12">
       <h1 className="font-semibold text-2xl my-4 tracking-tighter">Blogs</h1>
       <div>
         {allBlogs
