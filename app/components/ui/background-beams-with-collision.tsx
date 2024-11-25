@@ -83,9 +83,10 @@ export const BackgroundBeamsWithCollision = ({
     {
       initialX: 1800,
       translateX: 1800,
-      duration: 4,
-      repeatDelay: 2,
-      className: "h-12",
+      duration: 6,
+      repeatDelay: 4,
+      delay: 2,
+      className: "h-6",
     },
     {
       initialX: 2000,

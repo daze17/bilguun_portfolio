@@ -2,13 +2,13 @@
 
 import { Button } from "app/components/ui/button";
 import { cn } from "app/utils";
-// import { DownloadIcon, Loader2Icon, XIcon } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const FullSizeImage: React.FC<{
   imageName?: string;
-}> = ({ imageName }) => {
+  imageUrl: string;
+}> = ({ imageName, imageUrl }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -27,7 +27,6 @@ const FullSizeImage: React.FC<{
     };
   }, []);
 
-  const imageUrl = "/jennie2.jpg";
   // const imageUrl = URL.createObjectURL(data.body);
 
   return (
@@ -44,6 +43,7 @@ const FullSizeImage: React.FC<{
             alt={`${imageName}-preview`}
             width={500}
             height={500}
+            className="w-80 h-80 object-cover"
           />
         </div>
       </div>
