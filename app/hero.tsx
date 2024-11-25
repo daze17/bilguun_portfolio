@@ -13,13 +13,13 @@ const HeroFlipWords: React.FC = () => {
           "dark:text-neutral-400",
         )}
       >
-        <p className="flex">
+        <div className="flex">
           <h2 className="text-4xl lg:text-7xl">
             Hi. I'm{" "}
             <span className="font-['Open_Sans'] font-bold">Bilguun</span>
           </h2>
           <Image src="/heart.svg" alt="heart" width={50} height={50} />
-        </p>
+        </div>
         a developer who is <FlipWords words={words} />
       </div>
     </div>

@@ -1,11 +1,11 @@
-import Image from "next/image";
 import HeroFlipWords from "./hero";
+import { BackgroundBeamsWithCollision } from "./components/ui/background-beams-with-collision";
 
 const HomePage: React.Page = () => {
   return (
-    <div className="h-[calc(100dvh-210px)]">
+    <BackgroundBeamsWithCollision className="h-[calc(100dvh-210px)]">
       <HeroFlipWords />
-    </div>
+    </BackgroundBeamsWithCollision>
   );
 };
 export default HomePage;
