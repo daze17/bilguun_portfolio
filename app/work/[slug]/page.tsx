@@ -1,3 +1,5 @@
+import { cn } from "app/utils";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CustomMDX } from "app/components/mdx";
 import { baseUrl } from "app/sitemap";
@@ -59,6 +61,8 @@ const WorkDetail: React.Page<{ slug: string }> = ({ params }) => {
     notFound();
   }
 
+  const stacks = post.metadata.stacks?.split(",");
+
   return (
     <section className="w-full">
       <script
@@ -95,16 +99,30 @@ const WorkDetail: React.Page<{ slug: string }> = ({ params }) => {
             <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
               <div className="grid grid-cols-1 gap-y-6 gap-x-8 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
                 {/*TODO link */}
+                <Link href={post.metadata.url}>{post.metadata.url}</Link>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div className="mx-4 max-w-xl sm:mx-auto">
-        <div className="flex justify-between items-center mt-2 mb-8 text-sm">
+        <div className="flex justify-between items-center mt-2 text-sm">
           <p className="text-sm text-neutral-600 dark:text-neutral-400">
             {formatDate(post.metadata.publishedAt)}
           </p>
+        </div>
+        <div
+          className={cn(
+            "text-neutral-900 dark:text-neutral-100 tracking-tight text-sm",
+            "flex gap-x-2 flex-wrap",
+          )}
+        >
+          {stacks &&
+            stacks.map((stack, index) => (
+              <div key={index} className="">
+                {stack}
+              </div>
+            ))}
         </div>
         <article className="prose">
           <CustomMDX source={post.content} />

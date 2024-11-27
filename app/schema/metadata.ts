@@ -4,4 +4,5 @@ export type Metadata = {
   summary: string;
   image?: string;
   stacks?: string;
+  url: string;
 };

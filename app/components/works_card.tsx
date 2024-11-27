@@ -1,3 +1,4 @@
+import { cn } from "app/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "app/schema/metadata";
@@ -32,7 +33,12 @@ export const WorksCard: React.FC<Props> = ({ post }) => {
           <p className="text-neutral-600 text-sm dark:text-neutral-400 tabular-nums">
             {post.metadata.summary}
           </p>
-          <div className="flex gap-2">
+          <div
+            className={cn(
+              "text-neutral-900 dark:text-neutral-100 tracking-tight text-sm",
+              "flex gap-x-2 flex-wrap",
+            )}
+          >
             {stacks &&
               stacks.map((stack, index) => (
                 <div key={index} className="">
