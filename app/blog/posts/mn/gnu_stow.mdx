@@ -1,0 +1,132 @@
+---
+title: 'GNU Stow'
+publishedAt: '2024-10-09'
+summary: '.dotfiles-г хэрхэн удирдах вэ'
+---
+
+Dotfiles буюу тохиргооны `.zshrc` `.vimrc` `.bashrc` гэх мэт файлуудаа хэрхэн удирдах вэ.
+
+
+Шинэ зүйл туршиж үзэж байхдаа өмнө нь хэвийн ажилж байсан тохиргоогоо санаандгүй өөрчилж л байсан биздээ.
+Ажлын компьютер хувийн компьютер дээрх тохиргоонууд нэг л өөр байгаад байна уу? Аль эсвэл компьютер дээрх мэдээллүүд чинь уствал дахиад л бүх тохиргоонуудыг суулгах хэрэг гарна шүү дээ.
+
+
+Энэ асуудлуудыг version control ашиглаж шийдэх боломжтой. Гэвч dotfiles-ууд нь систем дээр эн тэндгүй тархсан байдалтай байдаг тул бидний мэдэх
+git version control ашиглахад асуудлууд гардаг.
+
+![gnu_stow](/blog/gnu_stow/gnu_stow.png)
+
+Харин үүнийг би GNU stow ашиглаж шийдсэн юм.
+
+## GNU Stow гэж юу вэ? тодорхойлолт
+
+GNU Stow бол симлинк ферм менежер /symlink farm manager/ буюу энэ нь таны систем дээрх тохиргооны файлуудад symlinks үүсгэж нэг газар бүгдийг нь хадгалахад тусалдаг гэсэн үг.
+Өөрөөр хэлбэл HOME цэсэнд байгаа тохиргооны файлыг өөр хавтсанд байгаа файлтай холбож өгнө.
+Маш энгийнээр тайлбарлавал HOME цэсэн дээр байгаа файлыг өөрчлөхөд бидний шинээр үүсгэсэн фолдер доторх файлууд зэрэг өөрчлөгдөнө гэсэн үг.
+
+
+### Гол онцлогууд:
+
+1. **Symlink farm management**: Stow нь таны үүсгэсэн dotfiles хавтсанаас HOME цэсэн дээрх тохиргоог үүсгэж удирдахад тусална.
+2. **Modular organization**: dotfile уудыг module хэлбэрээр бүлэглэж deploy хийхэд хялбар болгоно.
+3. **Non-destructive**: Stow нь одоо байгаа файлуудыг дарж бичихгүй бөгөөд, таны одоогын байгаа тохиргооны файлд аюулгүй.
+4. **Version control friendly**: Файлууд нь нэг газар төвлөрсөн болхоор git version control ашиглаж өөрчлөлтийг хянахад хялбар болно.
+
+
+Энэ нь таны HOME цэсэн дээрх тохиргооны файлуудтай яг ижилхэн бүтэцээр үүсэхийг анхаараарай.
+
+### Бүтэц ингэж харагдана:
+
+```
+home/
+    dotfiles/
+        .config/
+            zsh/
+                [...some files]
+        .local/
+            share/
+                uzbl/
+                    [...some files]
+        .vim/
+            [...some files]
+        .bashrc
+        .bash_profile
+        .bash_logout
+        .vimrc
+```
+
+In the following sections, we'll explore how to set up and use GNU Stow to manage your dotfiles effectively.
+
+1. stow суулгах
+Хэрвээ та MacOS ашигладаг мөн homebrew суулгасан болон дараах командыг уншуулахад л болно
+
+```
+   brew install stow
+```
+
+2. Шинэ dotfiles хавтас үүсгэх
+
+```
+   mkdir $HOME/dotfiles
+   cd ~/dotfiles
+```
+
+3. Ямар нэгэн асуудал үүсч магадгүй гээд dotfiles-ыг ориг хувилбараас нь copy-хийж авъя. .zshrc файл дээр жишээ туршиж үзэе.
+
+```
+   mkdir ~/copy_dotfiles
+   cp ~/.zshrc ~/copy_dotfiles/.zshrc
+   cp -R ~/.config ~/copy_dotfiles/
+```
+
+4. Тохиргооны файлуудаа шинээр үүсгэсэн ~/dotfiles/ хавтсанд хуулая.
+
+```
+   cd $HOME/dotfiles
+   mv ~/copy_dotfiles/.zshrc ~/dotfiles/.zshrc
+   mv ~/copy_dotfiles/.config ~/dotfiles/.config
+```
+
+5. Symlinks үүсгэх
+
+```
+   stow -t . ~/dotfiles/.zshrc
+   stow -t . ~/dotfiles/.config
+```
+
+Эсвэл
+
+```
+   stow -t .
+```
+
+6. Шалгаж үзэх
+
+```
+   ll -a
+```
+
+Хэрвээ амжилттай үүссэн бол дараах зураг шиг харагдах болно.
+![dotfiles directory](/blog/gnu_stow/dotfiles_directory.png)
+
+Бидний HOME цэсэн дээр ингэж харагдана
+![old config directory](/blog/gnu_stow/old_config_directory.png)
+
+7. Git config
+
+```
+   git init
+   git add .
+   git commit -m "Initial commit of dotfiles"
+```
+
+### Нэмэлт:
+Ignore файлууд
+
+Та хэрвээ version control тохируулсан бол `.git` файл хавтас дотор чинь байх болно гэсэн үг.
+Хэрвээ та stow нь `.git` симлинк хийнэ гэж бодож байвал санаа зовох хэрэггүй. Яагаад гэвэл stow нь `.git` файлыг автоматаар ignore хийх болно.
+
+Өөрчлөлт хийгдээгүй stow ignore файл ингэж харагдана
+![default_ignore](/blog/gnu_stow/default_ignore.png)
+
+Хэрвээ та үүн дээр нэмэлтээр өөрчлөлтүүд хийх гэж байгаа бол `.stow-local-ignore` гэж үүсгээд өөрчлөлтүүдээ нэмэх боломжтой.

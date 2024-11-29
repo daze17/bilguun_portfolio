@@ -23,7 +23,7 @@ const navItems = {
 
 export const Navbar: React.FC = () => {
   return (
-    <aside className="top-0 z-50 tracking-tight w-full flex justify-center mx-auto lg:fixed bg-black">
+    <aside className="top-0 z-50 tracking-tight w-full flex justify-center mx-auto lg:fixed bg-background">
       <nav
         className="flex flex-row items-start relative px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
         id="nav"

@@ -8,6 +8,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Footer from "./components/footer";
 import { baseUrl } from "./sitemap";
 import { cn } from "./utils";
+import { ThemeProvider } from "next-themes";
+// import { ThemeProvider } from "./components/ui/theme-provider";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -54,9 +56,16 @@ const RootLayout: React.Layout = ({
       <body className="antialiased mx-auto mt-0">
         <main className="flex-auto min-w-0 flex flex-col md:px-0">
           <div className="h-screen flex flex-col">
-            <Navbar />
-            <div className={cn("w-full")}>{children}</div>
-            <Footer />
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="light"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Navbar />
+              <div className={cn("w-full")}>{children}</div>
+              <Footer />
+            </ThemeProvider>
           </div>
           <Analytics />
           <SpeedInsights />

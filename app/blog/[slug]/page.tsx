@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { CustomMDX } from "app/components/mdx";
 import { getBlogPosts } from "app/blog/utils";
 import { baseUrl } from "app/sitemap";
-import Image from "next/image";
 import { formatDate } from "app/utils";
 
 export const generateStaticParams = async () => {
