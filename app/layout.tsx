@@ -56,16 +56,16 @@ const RootLayout: React.Layout = ({
       <body className="antialiased mx-auto mt-0">
         <main className="flex-auto min-w-0 flex flex-col md:px-0">
           <div className="h-screen flex flex-col">
-            <ThemeProvider
+            {/* <ThemeProvider
               attribute="class"
               defaultTheme="light"
               enableSystem
               disableTransitionOnChange
-            >
-              <Navbar />
-              <div className={cn("w-full")}>{children}</div>
-              <Footer />
-            </ThemeProvider>
+            > */}
+            <Navbar />
+            <div className={cn("w-full")}>{children}</div>
+            <Footer />
+            {/* </ThemeProvider> */}
           </div>
           <Analytics />
           <SpeedInsights />
