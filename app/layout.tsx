@@ -49,6 +49,7 @@ const RootLayout: React.Layout = ({
       lang="en"
       className={cn(
         "text-black bg-white dark:text-white dark:bg-black",
+        // "text-white bg-black",
         GeistSans.variable,
         GeistMono.variable,
       )}

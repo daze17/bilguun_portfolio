@@ -1,8 +1,11 @@
 import type { FC, PropsWithChildren } from "global";
+import type { PageProps } from "next/types";
 
 declare module "react" {
   export declare type FCC<P = {}> = FC<PropsWithChildren<P>>;
-  export declare type Page<P = {}, SP = {}> = FC<RouterParams<P, SP>>;
+  export declare type Page<P = {}, SP = {}> = FC<
+    PageProps & RouterParams<P, SP>
+  >;
   export declare type Layout<P = {}> = FCC<RouterParams<P>>;
   export declare type ServerActionWithoutState<Payload = FormData> = (
     payload: Awaited<Payload>,
