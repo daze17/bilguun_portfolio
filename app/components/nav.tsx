@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ModeToggle } from "./dark_mode_toggle";
 
 const navItems = {
   "/": {
@@ -40,6 +41,7 @@ export const Navbar: React.FC = () => {
               </Link>
             );
           })}
+          <ModeToggle />
         </div>
       </nav>
     </aside>

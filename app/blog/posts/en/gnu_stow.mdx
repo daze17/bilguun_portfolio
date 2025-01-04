@@ -3,6 +3,132 @@ title: 'GNU Stow'
 publishedAt: '2024-10-09'
 summary: 'How to manage .dotfiles'
 ---
+
+How do we manage configuration files like `.zshrc`, `.vimrc`, `.bashrc`, and other dotfiles?
+
+When trying out new things, you've probably accidentally changed configurations that were working fine before.
+Are the configurations different between your work and personal computers? Or when your computer data is lost, you'll need to reinstall all configurations again.
+
+These issues can be solved using version control. However, since dotfiles are scattered throughout the system, using traditional git version control presents some challenges.
+
+![gnu_stow](/blog/gnu_stow/gnu_stow.png)
+
+I solved this using GNU Stow.
+
+## What is GNU Stow? Definition
+
+GNU Stow is a symlink farm manager, which means it helps manage your system configuration files by creating symlinks and storing everything in one place.
+In other words, it connects configuration files in your HOME directory to files in another folder.
+To put it simply, when you change a file in the HOME directory, the files in our newly created folder will change simultaneously.
+
+### Key Features:
+
+1. **Symlink farm management**: Stow helps manage configurations in your HOME directory by creating symlinks from your dotfiles folder.
+2. **Modular organization**: Organizes dotfiles in modules making them easier to deploy.
+3. **Non-destructive**: Stow won't overwrite existing files, making it safe for your current configuration files.
+4. **Version control friendly**: Since files are centralized, it's easier to track changes using git version control.
+
+Note that it will create the exact same structure as your configuration files in the HOME directory.
+
+### The structure looks like this:
+
+```
+home/
+    dotfiles/
+        .config/
+            zsh/
+                [...some files]
+        .local/
+            share/
+                uzbl/
+                    [...some files]
+        .vim/
+            [...some files]
+        .bashrc
+        .bash_profile
+        .bash_logout
+        .vimrc
+```
+
+Let's explore how to set up and use GNU Stow:
+
+1. Install stow
+If you use MacOS and have homebrew installed, simply run:
+
+```
+   brew install stow
+```
+
+2. Create a new dotfiles directory
+
+```
+   mkdir $HOME/dotfiles
+   cd ~/dotfiles
+```
+
+3. To prevent issues, let's copy the original dotfiles. We'll test with .zshrc file.
+
+```
+   mkdir ~/copy_dotfiles
+   cp ~/.zshrc ~/copy_dotfiles/.zshrc
+   cp -R ~/.config ~/copy_dotfiles/
+```
+
+4. Move configuration files to the newly created ~/dotfiles/ directory.
+
+```
+   cd $HOME/dotfiles
+   mv ~/copy_dotfiles/.zshrc ~/dotfiles/.zshrc
+   mv ~/copy_dotfiles/.config ~/dotfiles/.config
+```
+
+5. Create symlinks
+
+```
+   stow -t . ~/dotfiles/.zshrc
+   stow -t . ~/dotfiles/.config
+```
+
+Or
+
+```
+   stow -t .
+```
+
+6. Verify
+
+```
+   ll -a
+```
+
+If successful, it should look like this:
+![dotfiles directory](/blog/gnu_stow/dotfiles_directory.png)
+
+Our HOME directory will look like this:
+![old config directory](/blog/gnu_stow/old_config_directory.png)
+
+7. Git config
+
+```
+   git init
+   git add .
+   git commit -m "Initial commit of dotfiles"
+```
+
+### Additional:
+Ignore files
+
+If you've configured version control, you'll have a `.git` file in your directory.
+Don't worry about stow creating symlinks for `.git` files. Stow will automatically ignore `.git` files.
+
+An unmodified stow ignore file looks like this:
+![default_ignore](/blog/gnu_stow/default_ignore.png)
+
+If you want to add additional changes, you can create `.stow-local-ignore` and add your modifications.
+title: 'GNU Stow'
+publishedAt: '2024-10-09'
+summary: 'How to manage .dotfiles'
+---
 ## What is GNU Stow?
 
 GNU Stow is a powerful tool for managing symlinks, particularly useful for organizing and deploying dotfiles. It allows you to keep a centralized repository of configuration files and easily create symlinks to them in your home directory.
