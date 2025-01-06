@@ -1,4 +1,4 @@
-import { cn } from "app/utils";
+import { cn } from "@/utils";
 import { ArrowIcon } from "./arrow_icon";
 import Image from "next/image";
 

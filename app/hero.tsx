@@ -1,5 +1,5 @@
 import { FlipWords } from "app/components/ui/flip_words";
-import { cn } from "./utils";
+import { cn } from "@/utils";
 import Image from "next/image";
 
 const HeroFlipWords: React.FC = () => {
@@ -23,7 +23,7 @@ const HeroFlipWords: React.FC = () => {
       <div
         className={cn(
           "text-lg lg:text-3xl mx-auto font-normal text-neutral-600",
-          "dark:text-neutral-400"
+          "dark:text-neutral-400",
         )}
       >
         <div className="flex">

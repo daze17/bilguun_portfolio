@@ -1,4 +1,4 @@
-import { cn } from "app/utils";
+import { cn } from "@/utils";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CustomMDX } from "app/components/mdx";

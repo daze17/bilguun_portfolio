@@ -7,7 +7,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Footer from "./components/footer";
 import { baseUrl } from "./sitemap";
-import { cn } from "./utils";
+import { cn } from "@/utils";
 import { ThemeProvider } from "./components/ui/theme-provider";
 
 export const metadata: Metadata = {
@@ -56,7 +56,7 @@ const RootLayout: React.Layout = ({
             <div
               className={cn(
                 "min-h-screen",
-                "text-black bg-white dark:text-white dark:bg-black"
+                "text-black bg-white dark:text-white dark:bg-black",
               )}
             >
               <Navbar />

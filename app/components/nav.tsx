@@ -41,7 +41,7 @@ export const Navbar: React.FC = () => {
               </Link>
             );
           })}
-          <ModeToggle />
+          {/* <ModeToggle /> */}
         </div>
       </nav>
     </aside>

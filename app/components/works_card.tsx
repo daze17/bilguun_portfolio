@@ -1,4 +1,4 @@
-import { cn } from "app/utils";
+import { cn } from "@/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "app/schema/metadata";
