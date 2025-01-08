@@ -11,17 +11,18 @@ Are the configurations different between your work and personal computers? Or wh
 
 These issues can be solved using version control. However, since dotfiles are scattered throughout the system, using traditional git version control presents some challenges.
 
+
 ![gnu_stow](/blog/gnu_stow/gnu_stow.png)
 
 I solved this using GNU Stow.
 
-## What is GNU Stow? Definition
+# What is GNU Stow? Definition
 
 GNU Stow is a symlink farm manager, which means it helps manage your system configuration files by creating symlinks and storing everything in one place.
 In other words, it connects configuration files in your HOME directory to files in another folder.
 To put it simply, when you change a file in the HOME directory, the files in our newly created folder will change simultaneously.
 
-### Key Features:
+## Key Features:
 
 1. **Symlink farm management**: Stow helps manage configurations in your HOME directory by creating symlinks from your dotfiles folder.
 2. **Modular organization**: Organizes dotfiles in modules making them easier to deploy.
@@ -30,7 +31,7 @@ To put it simply, when you change a file in the HOME directory, the files in our
 
 Note that it will create the exact same structure as your configuration files in the HOME directory.
 
-### The structure looks like this:
+## The structure looks like this:
 
 ```
 home/
@@ -102,9 +103,11 @@ Or
 ```
 
 If successful, it should look like this:
+
 ![dotfiles directory](/blog/gnu_stow/dotfiles_directory.png)
 
 Our HOME directory will look like this:
+
 ![old config directory](/blog/gnu_stow/old_config_directory.png)
 
 7. Git config
@@ -115,13 +118,14 @@ Our HOME directory will look like this:
    git commit -m "Initial commit of dotfiles"
 ```
 
-### Additional:
+# Additional:
 Ignore files
 
 If you've configured version control, you'll have a `.git` file in your directory.
 Don't worry about stow creating symlinks for `.git` files. Stow will automatically ignore `.git` files.
 
 An unmodified stow ignore file looks like this:
+
 ![default_ignore](/blog/gnu_stow/default_ignore.png)
 
 If you want to add additional changes, you can create `.stow-local-ignore` and add your modifications.

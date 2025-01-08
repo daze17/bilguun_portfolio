@@ -86,7 +86,7 @@ const BlogDetail: React.Page<{ slug: string }> = async ({ params }) => {
         }}
       />
       <div className="w-full bg-gradient-to-tl from-black via-zinc-900 to-black">
-        <div className="container mx-auto relative isolate overflow-hidden  py-24 sm:py-32">
+        <div className="container mx-auto relative isolate overflow-hidden py-24 sm:py-32">
           <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center flex flex-col items-center">
             <div className="mx-auto max-w-2xl lg:mx-0">
               <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl font-display">
@@ -102,7 +102,7 @@ const BlogDetail: React.Page<{ slug: string }> = async ({ params }) => {
           </div>
         </div>
       </div>
-      <div className="mx-4 max-w-xl sm:mx-auto">
+      <div className="mx-4 max-w-4xl sm:mx-auto">
         <div className="flex justify-between items-center mt-2 mb-8 text-sm">
           <p className="text-sm text-neutral-600 dark:text-neutral-400">
             {formatDate(post.metadata.publishedAt)}

@@ -107,7 +107,7 @@ const WorkDetail: React.Page<{ slug: string }> = async ({ params }) => {
           </div>
         </div>
       </div>
-      <div className="mx-4 max-w-xl sm:mx-auto">
+      <div className="mx-4 max-w-4xl sm:mx-auto">
         <div className="flex justify-between items-center mt-2 text-sm">
           <p className="text-sm text-neutral-600 dark:text-neutral-400">
             {formatDate(post.metadata.publishedAt)}
