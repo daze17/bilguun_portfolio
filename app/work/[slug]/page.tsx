@@ -1,9 +1,11 @@
-import { cn } from "@/utils";
-import Link from "next/link";
-import { notFound } from "next/navigation";
 import { CustomMDX } from "app/components/mdx";
 import { baseUrl } from "app/sitemap";
 import { formatDate } from "app/utils";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+
+import { cn } from "@/utils";
+
 import { getWorkPosts } from "../utils";
 
 export const generateStaticParams = async () => {

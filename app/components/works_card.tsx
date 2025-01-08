@@ -1,7 +1,8 @@
-import { cn } from "@/utils";
-import Link from "next/link";
-import Image from "next/image";
 import { Metadata } from "app/schema/metadata";
+import Image from "next/image";
+import Link from "next/link";
+
+import { cn } from "@/utils";
 
 type Props = {
   post: {

@@ -1,6 +1,8 @@
-import { cn } from "@/utils";
-import { ArrowIcon } from "./arrow_icon";
 import Image from "next/image";
+
+import { cn } from "@/utils";
+
+import { ArrowIcon } from "./arrow_icon";
 
 const Footer: React.FC = () => {
   return (

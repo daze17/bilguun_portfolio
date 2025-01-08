@@ -1,9 +1,10 @@
 "use client";
 
 import { Button } from "app/components/ui/button";
-import { cn } from "@/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+
+import { cn } from "@/utils";
 
 const FullSizeImage: React.FC<{
   imageName?: string;

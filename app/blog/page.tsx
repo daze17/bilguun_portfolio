@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { formatDate } from "app/utils";
+import Link from "next/link";
 
 import { getBlogPosts } from "./utils";
 

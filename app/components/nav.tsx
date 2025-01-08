@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import { ModeToggle } from "./dark_mode_toggle";
 
 const navItems = {

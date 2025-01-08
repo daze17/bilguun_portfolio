@@ -1,8 +1,9 @@
 "use client";
 
+import { AnimatePresence,motion } from "framer-motion";
+import React, { useEffect,useRef, useState } from "react";
+
 import { cn } from "@/utils";
-import { motion, AnimatePresence } from "framer-motion";
-import React, { useRef, useState, useEffect } from "react";
 
 export const BackgroundBeamsWithCollision = ({
   children,

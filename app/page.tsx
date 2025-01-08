@@ -1,5 +1,5 @@
-import HeroFlipWords from "./hero";
 import { BackgroundBeamsWithCollision } from "./components/ui/background-beams-with-collision";
+import HeroFlipWords from "./hero";
 
 const HomePage: React.Page = () => {
   return (

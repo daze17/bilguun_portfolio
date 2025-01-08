@@ -1,6 +1,7 @@
 import { FlipWords } from "app/components/ui/flip_words";
-import { cn } from "@/utils";
 import Image from "next/image";
+
+import { cn } from "@/utils";
 
 const HeroFlipWords: React.FC = () => {
   // const words = ["creative", "efficient", "passionate", "dedicated"];
