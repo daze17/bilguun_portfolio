@@ -12,8 +12,9 @@ export const generateStaticParams = async () => {
   }));
 };
 
-export const generateMetadata = ({ params }) => {
-  const post = getBlogPosts().find((post) => post.slug === params.slug);
+export const generateMetadata = async ({ params }) => {
+  const { slug } = await params;
+  const post = getBlogPosts().find((post) => post.slug === slug);
   if (!post) {
     return;
   }
@@ -52,8 +53,9 @@ export const generateMetadata = ({ params }) => {
   };
 };
 
-const BlogDetail: React.Page<{ slug: string }> = ({ params }) => {
-  const post = getBlogPosts().find((post) => post.slug === params.slug);
+const BlogDetail: React.Page<{ slug: string }> = async ({ params }) => {
+  const { slug } = await params;
+  const post = getBlogPosts().find((post) => post.slug === slug);
 
   if (!post) {
     notFound();

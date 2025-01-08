@@ -14,8 +14,9 @@ export const generateStaticParams = async () => {
   }));
 };
 
-export const generateMetadata = ({ params }) => {
-  let post = getWorkPosts().find((post) => post.slug === params.slug);
+export const generateMetadata = async ({ params }) => {
+  const { slug } = await params;
+  const post = getWorkPosts().find((post) => post.slug === slug);
   if (!post) {
     return;
   }
@@ -54,8 +55,9 @@ export const generateMetadata = ({ params }) => {
   };
 };
 
-const WorkDetail: React.Page<{ slug: string }> = ({ params }) => {
-  const post = getWorkPosts().find((post) => post.slug === params.slug);
+const WorkDetail: React.Page<{ slug: string }> = async ({ params }) => {
+  const { slug } = await params;
+  const post = getWorkPosts().find((post) => post.slug === slug);
 
   if (!post) {
     notFound();
