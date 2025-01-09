@@ -49,24 +49,24 @@ const RootLayout: React.Layout = ({
   return (
     <html lang="en" className={cn(GeistSans.variable, GeistMono.variable)}>
       <body className="antialiased mx-auto mt-0">
-        <main className="flex-auto min-w-0 flex flex-col md:px-0">
-          <ThemeProvider
+        <main className="flex-auto min-w-0 flex flex-col md:px-0 dark">
+          {/* <ThemeProvider
             attribute="class"
             defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
+          > */}
+          <div
+            className={cn(
+              "min-h-screen",
+              "text-black bg-white dark:text-white dark:bg-black",
+            )}
           >
-            <div
-              className={cn(
-                "min-h-screen",
-                "text-black bg-white dark:text-white dark:bg-black",
-              )}
-            >
-              <Navbar />
-              <div className="w-full">{children}</div>
-              <Footer />
-            </div>
-          </ThemeProvider>
+            <Navbar />
+            <div className="w-full">{children}</div>
+            <Footer />
+          </div>
+          {/* </ThemeProvider> */}
           <Analytics />
           <SpeedInsights />
         </main>
