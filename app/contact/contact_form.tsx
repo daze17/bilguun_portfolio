@@ -1,6 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2Icon } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -37,6 +39,7 @@ const formSchema = z.object({
 });
 
 export const ContactForm: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,16 +51,28 @@ export const ContactForm: React.FC = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await fetch(`/api/send`, {
-      method: "POST",
-      body: JSON.stringify(values),
-    });
+    setIsLoading(true);
+    try {
+      await fetch(`/api/send`, {
+        method: "POST",
+        body: JSON.stringify(values),
+      });
 
-    toast({
-      title: "Message sent!",
-      description: "Thank you for your message. We'll get back to you soon.",
-    });
-    form.reset();
+      toast({
+        title: "Message sent!",
+        description: "Thank you for your message. We'll get back to you soon.",
+      });
+      form.reset();
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+      toast({
+        title: "Error sending message",
+        description: "Please try again later.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -115,7 +130,10 @@ export const ContactForm: React.FC = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" variant={"outline"}>
+            <Button type="submit" variant={"outline"} disabled={isLoading}>
+              {isLoading && (
+                <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
+              )}
               Send Message
             </Button>
           </form>

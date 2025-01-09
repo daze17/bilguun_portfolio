@@ -6,11 +6,12 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 
+import Footer from "@/components/footer";
+import { Navbar } from "@/components/nav";
+import { ThemeProvider } from "@/components/ui/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/utils";
 
-import Footer from "./components/footer";
-import { Navbar } from "./components/nav";
-import { ThemeProvider } from "./components/ui/theme-provider";
 import { baseUrl } from "./sitemap";
 
 export const metadata: Metadata = {
@@ -66,6 +67,7 @@ const RootLayout: React.Layout = ({
             <div className="w-full">{children}</div>
             <Footer />
           </div>
+          <Toaster />
           {/* </ThemeProvider> */}
           <Analytics />
           <SpeedInsights />
