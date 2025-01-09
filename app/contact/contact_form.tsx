@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -48,15 +47,18 @@ export const ContactForm: React.FC = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Here you would typically send the form data to your server
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    await fetch(`/api/send`, {
+      method: "POST",
+      body: JSON.stringify(values),
+    });
+
     toast({
       title: "Message sent!",
       description: "Thank you for your message. We'll get back to you soon.",
     });
     form.reset();
-  }
+  };
 
   return (
     <Card>
