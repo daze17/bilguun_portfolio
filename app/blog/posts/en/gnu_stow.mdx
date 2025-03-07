@@ -6,8 +6,8 @@ summary: 'How to manage .dotfiles'
 
 How do we manage configuration files like `.zshrc`, `.vimrc`, `.bashrc`, and other dotfiles?
 
-When trying out new things, you've probably accidentally changed configurations that were working fine before.
-Are the configurations different between your work and personal computers? Or when your computer data is lost, you'll need to reinstall all configurations again.
+When experimenting with new tools or configurations, you might accidentally break a setup that was working fine before.
+Do your configurations differ between your work and personal computers? What if your computer crashes—will you have to reinstall and configure everything from scratch?
 
 These issues can be solved using version control. However, since dotfiles are scattered throughout the system, using traditional git version control presents some challenges.
 
@@ -16,20 +16,20 @@ These issues can be solved using version control. However, since dotfiles are sc
 
 I solved this using GNU Stow.
 
-# What is GNU Stow? Definition
+# What is GNU Stow?
 
-GNU Stow is a symlink farm manager, which means it helps manage your system configuration files by creating symlinks and storing everything in one place.
-In other words, it connects configuration files in your HOME directory to files in another folder.
-To put it simply, when you change a file in the HOME directory, the files in our newly created folder will change simultaneously.
+GNU Stow is a **symlink manager** that helps organize and manage dotfiles efficiently.
+Instead of scattering configuration files across your system, Stow allows you to **store them in a single directory** and create **symbolic links** in your **HOME directory**.
+This means any changes made to a file in your **dotfiles folder** will automatically reflect in your system.
 
 ## Key Features:
 
 1. **Symlink farm management**: Stow helps manage configurations in your HOME directory by creating symlinks from your dotfiles folder.
-2. **Modular organization**: Organizes dotfiles in modules making them easier to deploy.
+2. **Modular organization**: Allows you to organize dotfiles into separate modules, making deployment and maintenance easier.
 3. **Non-destructive**: Stow won't overwrite existing files, making it safe for your current configuration files.
 4. **Version control friendly**: Since files are centralized, it's easier to track changes using git version control.
 
-Note that it will create the exact same structure as your configuration files in the HOME directory.
+Stow **mirrors** your configuration file structure in your HOME directory, ensuring everything stays **organized and consistent**.
 
 ## The structure looks like this:
 
@@ -85,15 +85,12 @@ If you use MacOS and have homebrew installed, simply run:
 
 5. Create symlinks
 
-```
-   stow -t . ~/dotfiles/.zshrc
-   stow -t . ~/dotfiles/.config
-```
-
-Or
+Navigate to your **dotfiles directory** and use Stow to create symlinks:
 
 ```
-   stow -t .
+cd ~/dotfiles
+stow zsh
+stow config
 ```
 
 6. Verify
@@ -110,22 +107,25 @@ Our HOME directory will look like this:
 
 ![old config directory](/blog/gnu_stow/old_config_directory.png)
 
-7. Git config
+7. To track your dotfiles with Git:
+	 Using Git ensures that you can **track changes, revert mistakes, and sync dotfiles across different machines**. To initialize Git and commit your dotfiles:
 
 ```
+   cd ~/dotfiles
    git init
    git add .
    git commit -m "Initial commit of dotfiles"
 ```
 
 # Additional:
-Ignore files
+### Ignoring Files in Stow
 
-If you've configured version control, you'll have a `.git` file in your directory.
-Don't worry about stow creating symlinks for `.git` files. Stow will automatically ignore `.git` files.
+By default, Stow **ignores version control files** like `.git`. You don’t have to worry about `.git` being symlinked.
+
+To customize ignored files, create a `.stow-local-ignore` file and add your rules.
 
 An unmodified stow ignore file looks like this:
 
 ![default_ignore](/blog/gnu_stow/default_ignore.png)
 
-If you want to add additional changes, you can create `.stow-local-ignore` and add your modifications.
+If you want to exclude additional files from being symlinked, create a `.stow-local-ignore` file in the **dotfiles directory** and list the filenames or patterns you want to ignore.
