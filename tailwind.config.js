@@ -9,6 +9,13 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   darkMode: "class",
-  theme: {},
+  theme: {
+    extend: {
+      colors: {
+        primary: "#fcfcfc",
+        "primary-dark": "black",
+      },
+    },
+  },
   plugins: [require("tailwindcss-animate")],
 };
