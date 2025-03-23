@@ -48,7 +48,11 @@ const RootLayout: React.Layout = ({
   children: React.ReactNode;
 }) => {
   return (
-    <html lang="en" className={cn(GeistSans.variable, GeistMono.variable)}>
+    <html
+      suppressHydrationWarning
+      lang="en"
+      className={cn(GeistSans.variable, GeistMono.variable)}
+    >
       <body
         className={cn(
           "antialiased mx-auto mt-0 bg-primary dark:bg-primary-dark",
