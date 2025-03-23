@@ -48,34 +48,27 @@ const RootLayout: React.Layout = ({
   children: React.ReactNode;
 }) => {
   return (
-    <html
-      suppressHydrationWarning
-      lang="en"
-      className={cn(GeistSans.variable, GeistMono.variable)}
-    >
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "antialiased mx-auto mt-0 bg-primary dark:bg-primary-dark",
-          "text-black bg-primary dark:text-white dark:bg-primary-dark",
+          GeistSans.variable,
+          GeistMono.variable,
+          "antialiased mx-auto mt-0",
+          "text-black bg-primary dark:text-white dark:bg-primary-dark"
         )}
       >
-        <main className={cn("flex-auto min-w-0 flex flex-col md:px-0")}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
+        <ThemeProvider>
+          <main className={cn("flex-auto min-w-0 flex flex-col md:px-0")}>
             <div className={cn("min-h-screen")}>
               <Navbar />
               <div className="w-full">{children}</div>
               <Footer />
             </div>
             <Toaster />
-          </ThemeProvider>
+          </main>
           <Analytics />
           <SpeedInsights />
-        </main>
+        </ThemeProvider>
       </body>
     </html>
   );
