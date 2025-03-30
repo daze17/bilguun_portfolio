@@ -1,12 +1,10 @@
 ---
-title: 'TMUX'
-publishedAt: '2025-01-08'
-summary: 'tmux'
+title: "TMUX"
+publishedAt: "2025-01-08"
+summary: "tmux"
 ---
 
-I love working with the command line. I think there’s hardly any more productive and versatile tool for a software developer than the terminal. The additional hacker/wizard/neckbeard kind of feeling you get when using a terminal comes for free, what’s not to love?
-
-Over the years I’ve tried to streamline and customize my command line experience to be more convenient, more fun to use or just to look rad. One of the most important tools in my daily command line workflow is **tmux**. Check this out:
+I love working with the command line. I think there’s hardly any more productive and versatile tool for a software developer than the terminal. The additional hacker/wizard/neckbeard kind of feeling you get when using a terminal comes for free, what’s not to love? One of the most important tools in my daily command line workflow is **tmux**. Check this out:
 
 ![tmux](/blog/tmux/tmux.png)
 
@@ -19,7 +17,7 @@ You see that tmux basically offers two big features:
 1. Window management in your terminal
 2. and session management
 
-If you are familiar with GNU Screen this might all sound familiar. Think of tmux as an easier-to-use and a little more powerful alternative to Screen (obviously I’m being opinionated here).
+If you are familiar with GNU Screen this might all sound familiar. Think of tmux as an easier-to-use and a little more powerful alternative to Screen.
 
 Enough with the concepts. Let’s get our hands dirty!
 
@@ -35,6 +33,7 @@ For your first session simply start tmux with a fresh session:
 ```
 tmux
 ```
+
 This will create a new tmux session with a nice all-green status bar at the bottom:
 
 ![tmux_green_status_bar](/blog/tmux/tmux_green_status_bar.png)
@@ -51,23 +50,26 @@ This will split your window into two panes, one on the left and one on the right
 To switch panes, use `Ctrl-b <arrow key>`.
 
 **Resizing Panes** To resize a pane, use:
+
 ```
 Ctrl-b + Alt + <arrow key>
 ```
 
 # Detaching Sessions
 
-
 To detach a session and leave it running in the background, use `Ctrl-b d`.
 To **reattach** to an existing session, first list running sessions:
+
 ```
 tmux ls
 ```
 
 Then attach to a specific session:
+
 ```
 tmux attach -t <session-name>
 ```
+
 # Creating Windows
 
 If you want to create a new window, you can do so with `Ctrl-b c`. This will create a new window with a nice all-green status bar at the bottom:
@@ -77,6 +79,7 @@ If you want to create a new window, you can do so with `Ctrl-b c`. This will cre
 # Moving Between Windows
 
 To navigate between windows, use:
+
 ```
 Ctrl-b n # Move to the next window
 Ctrl-b p # Move to the previous window
@@ -84,8 +87,6 @@ Ctrl-b w # Open window selector
 ```
 
 # Scrolling
-
-Many beginners struggle with scrolling in tmux :
 
 ```
 Ctrl-b [
@@ -139,18 +140,18 @@ tmux rename-session -t 0 database
 The next time you attach to that session you simply use `tmux attach -t database`.
 If you’re using multiple sessions at once this can become an essential feature.
 
-And that’s it! Congratulations, you’ve just completed your first tmux session and got your hands dirty with its window and session management.
-Yes, there’s more stuff tmux can do. But what you’ve just learned should be everything to start using tmux in the future.
-
 # Killing a Session
 
 To kill a specific session, use:
+
 ```
 tmux kill-session -t <session-name>
 ```
 
 If you want to **forcefully terminate all tmux sessions**, use:
+
 ```
 tmux kill-server
 ```
+
 ⚠️ **Warning:** This will **shut down all running sessions**, even detached ones.
