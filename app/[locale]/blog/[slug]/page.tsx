@@ -39,7 +39,7 @@ export const generateMetadata = async ({ params }) => {
       description,
       type: "article",
       publishedTime,
-      url: `${baseUrl}/blog/${post.slug}`,
+      url: `${baseUrl}/${locale}/blog/${post.slug}`,
       images: [
         {
           url: ogImage,
@@ -82,7 +82,7 @@ const BlogDetail: React.Page<{ slug: string }> = async ({ params }) => {
             image: post.metadata.image
               ? `${baseUrl}${post.metadata.image}`
               : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-            url: `${baseUrl}/blog/${post.slug}`,
+            url: `${baseUrl}/${locale}/blog/${post.slug}`,
             author: {
               "@type": "Person",
               name: "My Portfolio",
