@@ -1,4 +1,4 @@
-import { WorksCard } from "app/components/works_card";
+import { WorksCard } from "@/components/works_card";
 
 import { getWorkPosts } from "./utils";
 
@@ -7,8 +7,12 @@ export const metadata = {
   description: "See my works.",
 };
 
-const WorksPage: React.Page = () => {
-  let allWorks = getWorkPosts();
+const WorksPage: React.Page = async ({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) => {
+  let allWorks = getWorkPosts(locale);
 
   return (
     <section className="min-h-[calc(100dvh-210px)] antialiased max-w-4xl mx-4 lg:mx-auto lg:py-12">

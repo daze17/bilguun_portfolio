@@ -1,0 +1,10 @@
+{
+  "index": {
+    "title": "Bienvenue",
+    "description": "C'est mon application internationalisée"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "about": "À propos"
+  }
+}

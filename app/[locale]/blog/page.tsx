@@ -1,5 +1,6 @@
 import { formatDate } from "app/utils";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 import { getBlogPosts } from "./utils";
 
@@ -8,8 +9,14 @@ export const metadata = {
   description: "Read my blog.",
 };
 
-const BlogListPage = () => {
-  const allBlogs = getBlogPosts();
+const BlogListPage: React.Page = async ({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) => {
+  const t = await getTranslations();
+  const allBlogs = getBlogPosts(locale);
+
   return (
     <section className="min-h-[calc(100dvh-210px)] antialiased max-w-4xl mx-4 lg:mx-auto lg:py-12">
       <h1 className="font-semibold text-2xl my-4 tracking-tighter">Blogs</h1>
