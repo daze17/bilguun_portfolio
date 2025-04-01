@@ -1,8 +1,9 @@
 import { getBlogPosts } from "app/blog/utils";
+import { formatDate } from "app/utils";
 import { CustomMDX } from "app/components/mdx";
 import { baseUrl } from "app/sitemap";
-import { formatDate } from "app/utils";
 import { notFound } from "next/navigation";
+import readingDuration from "reading-duration";
 
 export const generateStaticParams = async () => {
   const posts = getBlogPosts();
@@ -60,6 +61,9 @@ const BlogDetail: React.Page<{ slug: string }> = async ({ params }) => {
   if (!post) {
     notFound();
   }
+  const readingTime = readingDuration(post.content, {
+    emoji: false,
+  });
 
   return (
     <section className="w-full">
@@ -103,9 +107,11 @@ const BlogDetail: React.Page<{ slug: string }> = async ({ params }) => {
         </div>
       </div>
       <div className="mx-4 max-w-4xl sm:mx-auto">
-        <div className="flex justify-between items-center mt-2 mb-8 text-sm">
+        <div className="flex justify-between items-center mt-2 text-sm">
           <p className="text-sm text-neutral-600 dark:text-neutral-400">
             {formatDate(post.metadata.publishedAt)}
+            {" · "}
+            {readingTime}
           </p>
         </div>
         <article className="prose">
