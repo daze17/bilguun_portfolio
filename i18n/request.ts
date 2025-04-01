@@ -1,3 +1,4 @@
+import type { Formats } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
 
 import { Locales, routing } from "./routing";
@@ -13,3 +14,24 @@ export default getRequestConfig(async ({ locale }) => {
     messages: (await import(`../messages/${locale}.json`)).default,
   };
 });
+
+export const formats = {
+  dateTime: {
+    short: {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    },
+  },
+  number: {
+    precise: {
+      maximumFractionDigits: 5,
+    },
+  },
+  list: {
+    enumeration: {
+      style: "long",
+      type: "conjunction",
+    },
+  },
+} satisfies Formats;

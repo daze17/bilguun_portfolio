@@ -5,9 +5,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, getTranslations } from "next-intl/server";
+import { getMessages } from "next-intl/server";
 
 import Footer from "@/components/footer";
 import { Navbar } from "@/components/nav";
@@ -46,13 +45,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
-  children,
-  params: { locale },
-}: {
-  children: React.ReactNode;
-  params: { locale: string };
-}) {
+const RootLayout: React.Layout = async ({ params, children }) => {
+  const { locale } = await params;
+
   const messages = await getMessages({ locale });
 
   return (
@@ -87,4 +82,6 @@ export default async function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
