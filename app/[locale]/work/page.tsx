@@ -7,11 +7,8 @@ export const metadata = {
   description: "See my works.",
 };
 
-const WorksPage: React.Page = async ({
-  params: { locale },
-}: {
-  params: { locale: string };
-}) => {
+const WorksPage: React.Page = async ({ params }) => {
+  const { locale } = await params;
   let allWorks = getWorkPosts(locale);
 
   return (

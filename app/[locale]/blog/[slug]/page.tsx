@@ -1,15 +1,13 @@
 import { baseUrl } from "app/sitemap";
 import { formatDate } from "app/utils";
 import { notFound } from "next/navigation";
-import { getLocale } from "next-intl/server";
 import readingDuration from "reading-duration";
 
 import { getBlogPosts } from "@/[locale]/blog/utils";
 import { CustomMDX } from "@/components/mdx";
 
 export const generateStaticParams = async () => {
-  const locale = await getLocale();
-  const posts = getBlogPosts(locale);
+  const posts = getBlogPosts("en");
 
   return posts.map((post) => ({
     slug: post.slug,

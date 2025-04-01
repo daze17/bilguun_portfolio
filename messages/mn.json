@@ -1,10 +1,26 @@
 {
-  "index": {
-    "title": "Bienvenue",
-    "description": "C'est mon application internationalisée"
+  "navbar": {
+    "home": "нүүр",
+    "work": "ажил",
+    "blog": "блог",
+    "album": "зураг",
+    "contact": "холбоо барих"
   },
-  "navigation": {
-    "home": "Accueil",
-    "about": "À propos"
+  "home": {
+    "pre_title": "Сайн уу, Намайг",
+    "name": "Билгүүн",
+    "slogan": "Би"
+  },
+  "album": {
+    "title": "Зургууд"
+  },
+  "blog": {
+    "title": "Блогууд"
+  },
+  "contact": {
+    "title": "Холбоо барих"
+  },
+  "work": {
+    "title": "Ажилууд"
   }
 }

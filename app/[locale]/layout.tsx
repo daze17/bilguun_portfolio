@@ -13,7 +13,6 @@ import { Navbar } from "@/components/nav";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/utils";
-import { pickProperties } from "@/utils/pick_properties";
 
 import { baseUrl } from "../sitemap";
 
@@ -57,15 +56,10 @@ const RootLayout: React.Layout = async ({ params, children }) => {
           GeistSans.variable,
           GeistMono.variable,
           "antialiased mx-auto mt-0",
-          "text-black bg-primary dark:text-white dark:bg-primary-dark"
+          "text-black bg-primary dark:text-white dark:bg-primary-dark",
         )}
       >
-        <NextIntlClientProvider
-          messages={pickProperties(messages, {
-            index: true,
-            navigation: true,
-          })}
-        >
+        <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <main className={cn("flex-auto min-w-0 flex flex-col md:px-0")}>
               <div className={cn("min-h-screen")}>

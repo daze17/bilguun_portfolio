@@ -2,7 +2,6 @@ import { baseUrl } from "app/sitemap";
 import { formatDate } from "app/utils";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getLocale } from "next-intl/server";
 
 import { CustomMDX } from "@/components/mdx";
 import { cn } from "@/utils";
@@ -10,8 +9,7 @@ import { cn } from "@/utils";
 import { getWorkPosts } from "../utils";
 
 export const generateStaticParams = async () => {
-  const locale = await getLocale();
-  const posts = getWorkPosts(locale);
+  const posts = getWorkPosts("en");
 
   return posts.map((post) => ({
     slug: post.slug,
@@ -43,7 +41,7 @@ export const generateMetadata = async ({ params }) => {
       description,
       type: "article",
       publishedTime,
-      url: `${baseUrl}/work/${post.slug}`,
+      url: `${baseUrl}/${locale}/work/${post.slug}`,
       images: [
         {
           url: ogImage,
@@ -85,7 +83,7 @@ const WorkDetail: React.Page<{ slug: string }> = async ({ params }) => {
             image: post.metadata.image
               ? `${baseUrl}${post.metadata.image}`
               : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-            url: `${baseUrl}/work/${post.slug}`,
+            url: `${baseUrl}/${locale}/work/${post.slug}`,
             author: {
               "@type": "Person",
               name: "My Portfolio",
@@ -120,7 +118,7 @@ const WorkDetail: React.Page<{ slug: string }> = async ({ params }) => {
         <div
           className={cn(
             "text-neutral-900 dark:text-neutral-100 tracking-tight text-sm",
-            "flex gap-x-2 flex-wrap"
+            "flex gap-x-2 flex-wrap",
           )}
         >
           {stacks &&

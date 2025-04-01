@@ -1,10 +1,26 @@
 {
-  "index": {
-    "title": "Welcome",
-    "description": "This is my internationalized app"
+  "navbar": {
+    "home": "home",
+    "work": "work",
+    "blog": "blog",
+    "album": "album",
+    "contact": "contact"
   },
-  "navigation": {
-    "home": "Home",
-    "about": "About"
+  "home": {
+    "pre_title": "Hi. I'm",
+    "name": "Bilguun",
+    "slogan": "I thrive on"
+  },
+  "album": {
+    "title": "Album"
+  },
+  "blog": {
+    "title": "Blogs"
+  },
+  "contact": {
+    "title": "Contact"
+  },
+  "work": {
+    "title": "Works"
   }
 }

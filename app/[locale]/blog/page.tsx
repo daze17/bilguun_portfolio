@@ -9,17 +9,18 @@ export const metadata = {
   description: "Read my blog.",
 };
 
-const BlogListPage: React.Page = async ({
-  params: { locale },
-}: {
-  params: { locale: string };
-}) => {
+const BlogListPage: React.Page = async ({ params }) => {
+  const { locale } = await params;
+
   const t = await getTranslations();
+
   const allBlogs = getBlogPosts(locale);
 
   return (
     <section className="min-h-[calc(100dvh-210px)] antialiased max-w-4xl mx-4 lg:mx-auto lg:py-12">
-      <h1 className="font-semibold text-2xl my-4 tracking-tighter">Blogs</h1>
+      <h1 className="font-semibold text-2xl my-4 tracking-tighter">
+        {t("blog.title")}
+      </h1>
       <div>
         {allBlogs
           .sort((a, b) => {
