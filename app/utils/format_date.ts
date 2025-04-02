@@ -1,4 +1,8 @@
-export const formatDate = (date: string, includeRelative = false) => {
+export const formatDate = (
+  date: string,
+  includeRelative = false,
+  locale?: "en" | "mn",
+) => {
   let currentDate = new Date();
   if (!date.includes("T")) {
     date = `${date}T00:00:00`;
@@ -21,11 +25,18 @@ export const formatDate = (date: string, includeRelative = false) => {
     formattedDate = "Today";
   }
 
-  let fullDate = targetDate.toLocaleString("en-us", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  let fullDate =
+    locale === "mn"
+      ? targetDate.toLocaleString("mn-MN", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        })
+      : targetDate.toLocaleString("en-us", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        });
 
   if (!includeRelative) {
     return fullDate;

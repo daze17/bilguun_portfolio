@@ -1,4 +1,18 @@
 {
+  "contact_form": {
+    "message_sent": "Message Sent!",
+    "message_sent_description": "Thank you for your message. We'll get back to you soon.",
+    "message_send_error": "Error sending message",
+    "message_send_error_description": "Please try again later.",
+    "title": "Contact Me",
+    "description": "Fill out the form below to get in touch. I'll get back to you as soon as possible.",
+    "name": "Name",
+    "name_placeholder": "Your name",
+    "email": "Email",
+    "message": "Message",
+    "message_placeholder": "Your message here...",
+    "send_message": "Send Message"
+  },
   "navbar": {
     "home": "home",
     "work": "work",
@@ -22,5 +36,10 @@
   },
   "work": {
     "title": "Works"
+  },
+  "validation": {
+    "atleast_2_characters": "Name must be at least 2 characters.",
+    "invalid_email": "Please enter a valid email address.",
+    "message_atleast_10_characters": "Message must be at least 10 characters."
   }
 }
