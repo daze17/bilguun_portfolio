@@ -1,12 +1,15 @@
-import { getBlogPosts } from "app/blog/utils";
-import { CustomMDX } from "app/components/mdx";
 import { baseUrl } from "app/sitemap";
 import { formatDate } from "app/utils";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import readingDuration from "reading-duration";
+
+import { CustomMDX } from "@/components/mdx";
+import { cn } from "@/utils";
+
+import { getWorkPosts } from "../utils";
 
 export const generateStaticParams = async () => {
-  const posts = getBlogPosts();
+  const posts = getWorkPosts("en");
 
   return posts.map((post) => ({
     slug: post.slug,
@@ -14,8 +17,8 @@ export const generateStaticParams = async () => {
 };
 
 export const generateMetadata = async ({ params }) => {
-  const { slug } = await params;
-  const post = getBlogPosts().find((post) => post.slug === slug);
+  const { slug, locale } = await params;
+  const post = getWorkPosts(locale).find((post) => post.slug === slug);
   if (!post) {
     return;
   }
@@ -38,7 +41,7 @@ export const generateMetadata = async ({ params }) => {
       description,
       type: "article",
       publishedTime,
-      url: `${baseUrl}/blog/${post.slug}`,
+      url: `${baseUrl}/${locale}/work/${post.slug}`,
       images: [
         {
           url: ogImage,
@@ -54,16 +57,15 @@ export const generateMetadata = async ({ params }) => {
   };
 };
 
-const BlogDetail: React.Page<{ slug: string }> = async ({ params }) => {
-  const { slug } = await params;
-  const post = getBlogPosts().find((post) => post.slug === slug);
+const WorkDetail: React.Page<{ slug: string }> = async ({ params }) => {
+  const { slug, locale } = await params;
+  const post = getWorkPosts(locale).find((post) => post.slug === slug);
 
   if (!post) {
     notFound();
   }
-  const readingTime = readingDuration(post.content, {
-    emoji: false,
-  });
+
+  const stacks = post.metadata.stacks?.split(",");
 
   return (
     <section className="w-full">
@@ -73,15 +75,15 @@ const BlogDetail: React.Page<{ slug: string }> = async ({ params }) => {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            headline: post.metadata.title,
+            "@type": "WorkPosting",
+            // headline: post.metadata.title,
             datePublished: post.metadata.publishedAt,
             dateModified: post.metadata.publishedAt,
             description: post.metadata.summary,
             image: post.metadata.image
               ? `${baseUrl}${post.metadata.image}`
               : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-            url: `${baseUrl}/blog/${post.slug}`,
+            url: `${baseUrl}/${locale}/work/${post.slug}`,
             author: {
               "@type": "Person",
               name: "My Portfolio",
@@ -90,7 +92,7 @@ const BlogDetail: React.Page<{ slug: string }> = async ({ params }) => {
         }}
       />
       <div className="w-full bg-gradient-to-tl from-black via-zinc-900 to-black">
-        <div className="container mx-auto relative isolate overflow-hidden py-24 sm:py-32">
+        <div className="container mx-auto relative isolate overflow-hidden  py-24 sm:py-32">
           <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center flex flex-col items-center">
             <div className="mx-auto max-w-2xl lg:mx-0">
               <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl font-display">
@@ -101,6 +103,7 @@ const BlogDetail: React.Page<{ slug: string }> = async ({ params }) => {
             <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
               <div className="grid grid-cols-1 gap-y-6 gap-x-8 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
                 {/*TODO link */}
+                <Link href={post.metadata.url}>{post.metadata.url}</Link>
               </div>
             </div>
           </div>
@@ -110,9 +113,20 @@ const BlogDetail: React.Page<{ slug: string }> = async ({ params }) => {
         <div className="flex justify-between items-center mt-2 text-sm">
           <p className="text-sm text-neutral-600 dark:text-neutral-400">
             {formatDate(post.metadata.publishedAt)}
-            {" · "}
-            {readingTime}
           </p>
+        </div>
+        <div
+          className={cn(
+            "text-neutral-900 dark:text-neutral-100 tracking-tight text-sm",
+            "flex gap-x-2 flex-wrap",
+          )}
+        >
+          {stacks &&
+            stacks.map((stack, index) => (
+              <div key={index} className="">
+                {stack}
+              </div>
+            ))}
         </div>
         <article className="prose">
           <CustomMDX source={post.content} />
@@ -121,5 +135,4 @@ const BlogDetail: React.Page<{ slug: string }> = async ({ params }) => {
     </section>
   );
 };
-
-export default BlogDetail;
+export default WorkDetail;

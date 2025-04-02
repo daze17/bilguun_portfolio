@@ -1,29 +1,31 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 import { ModeToggle } from "./dark_mode_toggle";
 
-const navItems = {
-  "/": {
-    name: "🏠 home",
-  },
-  // "/about": {
-  //   name: "👋 about",
-  // },
-  "/work": {
-    name: "🎨 work",
-  },
-  "/blog": {
-    name: "📰 blog",
-  },
-  "/album": {
-    name: "📷 album",
-  },
-  "/contact": {
-    name: "📧 contact",
-  },
-};
+export const Navbar: React.FC = async () => {
+  const t = await getTranslations();
 
-export const Navbar: React.FC = () => {
+  const navItems = {
+    "/": {
+      name: `🏠 ${t("navbar.home")}`,
+    },
+    // "/about": {
+    //   name: "👋 about",
+    // },
+    "/work": {
+      name: `🎨 ${t("navbar.work")}`,
+    },
+    "/blog": {
+      name: `📰 ${t("navbar.blog")}`,
+    },
+    "/album": {
+      name: `📷 ${t("navbar.album")}`,
+    },
+    "/contact": {
+      name: `📧 ${t("navbar.contact")}`,
+    },
+  };
   return (
     <aside className="top-0 z-50 tracking-tight w-full flex justify-center mx-auto lg:fixed bg-primary dark:bg-primary-dark">
       <nav

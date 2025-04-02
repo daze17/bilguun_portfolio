@@ -1,0 +1,45 @@
+{
+  "contact_form": {
+    "message_sent": "Мессеж илгээгдлээ!",
+    "message_sent_description": "Таны мессежийг хүлээн авлаа. Бид тантай удахгүй холбогдох болно.",
+    "message_send_error": "Мессеж илгээхэд алдаа гарлаа",
+    "message_send_error_description": "Дараа дахин оролдоно уу.",
+    "title": "Надтай холбогдох",
+    "description": "Надтай холбогдохын тулд доорх формыг бөглөнө үү. Би аль болох хурдан хариу өгөх болно.",
+    "name": "Нэр",
+    "name_placeholder": "Таны нэр",
+    "email": "Имэйл",
+    "message": "Мессеж",
+    "message_placeholder": "Таны мессеж энд...",
+    "send_message": "Илгээх"
+  },
+  "navbar": {
+    "home": "нүүр",
+    "work": "ажил",
+    "blog": "блог",
+    "album": "зураг",
+    "contact": "холбоо барих"
+  },
+  "home": {
+    "pre_title": "Hi. I'm",
+    "name": "Bilguun",
+    "slogan": "I thrive on"
+  },
+  "album": {
+    "title": "Зургууд"
+  },
+  "blog": {
+    "title": "Блогууд"
+  },
+  "contact": {
+    "title": "Холбоо барих"
+  },
+  "work": {
+    "title": "Ажилууд"
+  },
+  "validation": {
+    "atleast_2_characters": "Нэр дор хаяж 2 тэмдэгтээс дээш байх ёстой.",
+    "invalid_email": "Буруу email хаяг байна.",
+    "message_atleast_10_characters": "Мессеж дор хаяж 10 тэмдэгтээс дээш байх ёстой."
+  }
+}
