@@ -1,11 +1,13 @@
 import { baseUrl } from "app/sitemap";
 
 import { getBlogPosts } from "@/[locale]/blog/utils";
+import { getWorkPosts } from "@/[locale]/work/utils";
 
 export async function GET() {
-  let allBlogs = await getBlogPosts("en");
+  let allBlogs = getBlogPosts("en");
+  let allWorks = getWorkPosts("en");
 
-  const itemsXml = allBlogs
+  const blogItemsXml = allBlogs
     .sort((a, b) => {
       if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
         return -1;
@@ -16,12 +18,32 @@ export async function GET() {
       (post) =>
         `<item>
           <title>${post.metadata.title}</title>
-          <link>${baseUrl}/blog/${post.slug}</link>
+          <link>${baseUrl}/en/blog/${post.slug}</link>
           <description>${post.metadata.summary || ""}</description>
           <pubDate>${new Date(
-            post.metadata.publishedAt
+            post.metadata.publishedAt,
           ).toUTCString()}</pubDate>
-        </item>`
+        </item>`,
+    )
+    .join("\n");
+
+  const workItemsXml = allWorks
+    .sort((a, b) => {
+      if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
+        return -1;
+      }
+      return 1;
+    })
+    .map(
+      (post) =>
+        `<item>
+          <title>${post.metadata.title}</title>
+          <link>${baseUrl}/en/work/${post.slug}</link>
+          <description>${post.metadata.summary || ""}</description>
+          <pubDate>${new Date(
+            post.metadata.publishedAt,
+          ).toUTCString()}</pubDate>
+        </item>`,
     )
     .join("\n");
 
@@ -31,7 +53,10 @@ export async function GET() {
         <title>My Portfolio</title>
         <link>${baseUrl}</link>
         <description>This is my portfolio RSS feed</description>
-        ${itemsXml}
+        <title>Blogs</title>
+        ${blogItemsXml}
+        <title>Works</title>
+        ${workItemsXml}
     </channel>
   </rss>`;
 
