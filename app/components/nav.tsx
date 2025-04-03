@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
-import { ModeToggle } from "./dark_mode_toggle";
+import { DarkModeToggle } from "./dark_mode_toggle";
+import { LanguageSwitcher } from "./language_switcher";
 
 export const Navbar: React.FC = async () => {
   const t = await getTranslations();
@@ -28,6 +29,7 @@ export const Navbar: React.FC = async () => {
   };
   return (
     <aside className="top-0 z-50 tracking-tight w-full flex justify-center mx-auto lg:fixed bg-primary dark:bg-primary-dark">
+      {/* TODO: sp version */}
       <nav
         className="flex flex-row items-start relative px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
         id="nav"
@@ -44,7 +46,11 @@ export const Navbar: React.FC = async () => {
               </Link>
             );
           })}
-          <ModeToggle />
+        </div>
+
+        <div>
+          <LanguageSwitcher />
+          <DarkModeToggle />
         </div>
       </nav>
     </aside>

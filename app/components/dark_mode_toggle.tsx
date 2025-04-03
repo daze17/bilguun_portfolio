@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/react-dropdown-menu";
 
-export function ModeToggle() {
+export function DarkModeToggle() {
   const { setTheme } = useTheme();
 
   return (
@@ -30,7 +30,6 @@ export function ModeToggle() {
       >
         <DropdownMenuItem
           onClick={() => {
-            console.log("click light");
             setTheme("light");
           }}
         >
