@@ -8,13 +8,13 @@ import { cn } from "@/utils";
 
 import { getWorkPosts } from "../utils";
 
-export const generateStaticParams = async () => {
-  const posts = getWorkPosts("en");
+// export const generateStaticParams = async () => {
+//   const posts = getWorkPosts("en");
 
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-};
+//   return posts.map((post) => ({
+//     slug: post.slug,
+//   }));
+// };
 
 export const generateMetadata = async ({ params }) => {
   const { slug, locale } = await params;

@@ -6,13 +6,13 @@ import readingDuration from "reading-duration";
 import { getBlogPosts } from "@/[locale]/blog/utils";
 import { CustomMDX } from "@/components/mdx";
 
-export const generateStaticParams = async () => {
-  const posts = getBlogPosts("en");
+// export const generateStaticParams = async () => {
+//   const posts = getBlogPosts("en");
 
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-};
+//   return posts.map((post) => ({
+//     slug: post.slug,
+//   }));
+// };
 
 export const generateMetadata = async ({ params }) => {
   const { slug, locale } = await params;
