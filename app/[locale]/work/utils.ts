@@ -1,7 +1,8 @@
-import { baseUrl } from "@/sitemap";
 import { parseFrontmatter } from "app/utils";
 import fs from "fs";
 import path from "path";
+
+import { baseUrl } from "@/sitemap";
 
 function getMDXFiles(dir) {
   return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
