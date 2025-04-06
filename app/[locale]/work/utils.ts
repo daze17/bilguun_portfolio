@@ -26,14 +26,7 @@ function getMDXData(dir) {
 }
 
 export function getWorkPosts(locale: string) {
-  const dir = path.join(
-    process.cwd(),
-    "app",
-    "[locale]",
-    "work",
-    "posts",
-    locale
-  );
+  const dir = path.join(process.cwd(), "app", "en", "work", "posts", locale);
   console.log(dir, "dir");
   // /var/task/app/[locale]/blog/posts/en
 
