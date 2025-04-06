@@ -23,7 +23,10 @@ export const LanguageSwitcher: React.FC = () => {
           <LanguagesIcon className="h-[1.2rem] w-[1.2rem] stroke-2 scale-100" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent
+        align="end"
+        className="bg-primary dark:bg-primary-dark"
+      >
         {localeNames.map(({ code, name }) => (
           <Link
             href={{
