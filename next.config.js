@@ -1,5 +1,6 @@
 // next.config.js
 const withNextIntl = require("next-intl/plugin")();
+const path = require("path");
 
 module.exports = withNextIntl({
   images: {
@@ -12,4 +13,5 @@ module.exports = withNextIntl({
       },
     ],
   },
+  outputFileTracingRoot: path.join(__dirname),
 });
