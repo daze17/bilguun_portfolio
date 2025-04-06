@@ -26,20 +26,34 @@ function getMDXData(dir) {
 }
 
 export function getBlogPosts(locale: string) {
-  const dir = path.join(
-    process.cwd(),
-    "app",
-    "[locale]",
-    "blog",
-    "posts",
-    locale,
-  );
+  // Try different possible paths for the posts directory
+  const possiblePaths = [
+    // Standard path
+    path.join(process.cwd(), "app", "[locale]", "blog", "posts", locale),
+    // Vercel path (if the app directory is at the root)
+    path.join(process.cwd(), "app", "blog", "posts", locale),
+    // Vercel path (if the app directory is inside a subdirectory)
+    path.join(
+      process.cwd(),
+      "app",
+      "..",
+      "app",
+      "[locale]",
+      "blog",
+      "posts",
+      locale
+    ),
+  ];
 
-  // Check if directory exists before trying to read it
-  if (!fs.existsSync(dir)) {
-    console.warn(`Directory not found: ${dir}`);
-    return [];
+  // Try each path until we find one that exists
+  for (const dir of possiblePaths) {
+    if (fs.existsSync(dir)) {
+      console.log(`Found blog posts directory at: ${dir}`);
+      return getMDXData(dir);
+    }
   }
 
-  return getMDXData(dir);
+  // If none of the paths exist, log a warning and return an empty array
+  console.warn(`No blog posts directory found for locale: ${locale}`);
+  return [];
 }
