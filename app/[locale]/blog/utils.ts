@@ -32,7 +32,7 @@ export function getBlogPosts(locale: string) {
     "[locale]",
     "blog",
     "posts",
-    locale,
+    locale
   );
 
   console.log(dir, "dir");

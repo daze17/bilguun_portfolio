@@ -28,18 +28,21 @@ function getMDXData(dir) {
 }
 
 export function getWorkPosts(locale: string) {
-  const getShikiPath = (): string => {
-    return path.join(process.cwd(), "app", "[locale]", "work", "posts", locale);
-  };
-  const dir = getShikiPath();
-  console.log(dir, "dir");
-  // // /var/task/app/[locale]/blog/posts/en
+  // Use path.resolve to get the absolute path, starting from the project root
+  const postsDir = path.resolve(
+    process.cwd(),
+    "app",
+    "[locale]",
+    "work",
+    "posts",
+    locale
+  );
 
   // Check if directory exists before trying to read it
-  if (!fs.existsSync(dir)) {
-    console.warn(`Directory not found: ${dir}`);
+  if (!fs.existsSync(postsDir)) {
+    console.warn(`Directory not found: ${postsDir}`);
     return [];
   }
 
-  return getMDXData(dir);
+  return getMDXData(postsDir);
 }
