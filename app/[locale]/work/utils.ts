@@ -28,21 +28,13 @@ function getMDXData(dir) {
 }
 
 export function getWorkPosts(locale: string) {
-  // Use path.resolve to get the absolute path, starting from the project root
-  const postsDir = path.resolve(
-    process.cwd(),
-    "app",
-    "[locale]",
-    "work",
-    "posts",
-    locale
-  );
+  const dir = path.join(process.cwd(), "app", "content", "works", locale);
 
   // Check if directory exists before trying to read it
-  if (!fs.existsSync(postsDir)) {
-    console.warn(`Directory not found: ${postsDir}`);
+  if (!fs.existsSync(dir)) {
+    console.warn(`Directory not found: ${dir}`);
     return [];
   }
 
-  return getMDXData(postsDir);
+  return getMDXData(dir);
 }
