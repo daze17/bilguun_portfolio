@@ -1,3 +1,4 @@
+import { baseUrl } from "@/sitemap";
 import { parseFrontmatter } from "app/utils";
 import fs from "fs";
 import path from "path";
@@ -26,9 +27,12 @@ function getMDXData(dir) {
 }
 
 export function getWorkPosts(locale: string) {
-  const dir = path.join(process.cwd(), "app", "en", "work", "posts", locale);
+  const getShikiPath = (): string => {
+    return path.join(process.cwd(), "app", "[locale]", "work", "posts", locale);
+  };
+  const dir = getShikiPath();
   console.log(dir, "dir");
-  // /var/task/app/[locale]/blog/posts/en
+  // // /var/task/app/[locale]/blog/posts/en
 
   // Check if directory exists before trying to read it
   if (!fs.existsSync(dir)) {

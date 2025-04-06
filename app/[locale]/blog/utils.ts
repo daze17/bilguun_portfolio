@@ -26,17 +26,16 @@ function getMDXData(dir) {
 }
 
 export function getBlogPosts(locale: string) {
-  // const dir = path.join(
-  //   process.cwd(),
-  //   "app",
-  //   "[locale]",
-  //   "blog",
-  //   "posts",
-  //   locale
-  // );
-  const dir = path.join(process.cwd(), "app", "blog", "posts", "en");
+  const dir = path.join(
+    process.cwd(),
+    "app",
+    "[locale]",
+    "blog",
+    "posts",
+    locale,
+  );
+
   console.log(dir, "dir");
-  // /var/task/app/[locale]/blog/posts/en
 
   // Check if directory exists before trying to read it
   if (!fs.existsSync(dir)) {

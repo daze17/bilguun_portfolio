@@ -13,5 +13,5 @@ module.exports = withNextIntl({
       },
     ],
   },
-  outputFileTracingRoot: path.join(__dirname),
+  // outputFileTracingRoot: path.join(__dirname),
 });
