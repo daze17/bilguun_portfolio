@@ -22,9 +22,9 @@ export const Navbar: React.FC = () => {
     "/": {
       name: `🏠 ${t("navbar.home")}`,
     },
-    // "/about": {
-    //   name: "👋 about",
-    // },
+    "/about": {
+      name: `👋 ${t("navbar.about")}`,
+    },
     "/work": {
       name: `🎨 ${t("navbar.work")}`,
     },
