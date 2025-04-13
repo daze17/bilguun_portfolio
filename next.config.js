@@ -1,6 +1,5 @@
 // next.config.js
 const withNextIntl = require("next-intl/plugin")();
-const path = require("path");
 
 module.exports = withNextIntl({
   images: {
@@ -9,9 +8,20 @@ module.exports = withNextIntl({
         protocol: "https",
         hostname: "i.imgur.com",
         port: "",
-        search: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.unsplash.com",
+        port: "",
+        pathname: "/**",
       },
     ],
   },
-  // outputFileTracingRoot: path.join(__dirname),
 });
