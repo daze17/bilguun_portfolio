@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 
 import { cn } from "@/utils";
 
+import AboutMeLayout from "./about_me_layout";
 import SkillSection from "./skills";
 
 const AboutPage: React.Page = async () => {
@@ -17,7 +18,6 @@ const AboutPage: React.Page = async () => {
       >
         {t("about.title")}
       </h1>
-
       <div className="grid md:grid-cols-2 gap-20 items-start my-20">
         <Image
           // TODO: replace the goddamn image
@@ -30,23 +30,23 @@ const AboutPage: React.Page = async () => {
 
         <div className="flex flex-col justify-center h-full">
           <h1 className="font-semibold text-5xl tracking-tighter my-5">
-            {/* TODO: dammit please add the translations */}
-            My name is Bilguun
+            {t("about.my_name")}
           </h1>
-          {/* TODO: dammit please add the translations */}
-          <p>
-            I was born in Mongolia and studied in a math-focused class during
-            high school. I studied Information Systems at the National
-            University of Mongolia for 4 years. My interest in tech started
-            early — back in middle school, I used to build blogs when platforms
-            like Miniih.com and Gogo.mn were popular(iykyk). Now, with almost 4
-            years of experience as a full-stack developer based in Ulaanbaatar,
-            I enjoy turning complex problems into simple and easy-to-use
-            solutions.
-          </p>
+          <p>{t("about.me_description")}</p>
         </div>
       </div>
       <SkillSection />
+
+      {/* <h1
+        className={cn(
+          "text-5xl md:text-8xl",
+          "font-semibold mt-52 mb-12 tracking-tighter text-center",
+        )}
+      >
+        {t("about.more")}
+      </h1>
+
+      <AboutMeLayout /> */}
     </section>
   );
 };
