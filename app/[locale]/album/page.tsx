@@ -7,6 +7,10 @@ const AlbumPage: React.Page = async () => {
   // TODO: source path
   const images = [
     {
+      name: "work",
+      url: "/album/work.jpeg",
+    },
+    {
       name: "cafe",
       url: "/album/cafe.jpeg",
     },

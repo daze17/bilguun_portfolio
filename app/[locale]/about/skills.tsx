@@ -87,7 +87,7 @@ const groupedSkills = {
 
 const SkillSection: React.FC = () => {
   return (
-    <section className="px-6 py-16 max-w-5xl mx-auto">
+    <section className="py-16 max-w-5xl mx-auto">
       <h2 className="text-3xl font-bold mb-4">🚀 Skills</h2>
       <div className="space-y-4">
         {Object.entries(groupedSkills).map(([category, items]) => (
