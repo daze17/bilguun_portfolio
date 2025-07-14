@@ -56,7 +56,7 @@ const AboutPage: React.Page = async () => {
         <div className="flex flex-col justify-center h-full md:col-span-2">
           <p>
             Outside of coding, I love traveling, hiking, experimenting in the
-            kitchen, reading manga and watching anime, and gaming.
+            kitchen, reading manga, watching anime and gaming.
           </p>
         </div>
       </div>
