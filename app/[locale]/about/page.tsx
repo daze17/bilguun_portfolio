@@ -11,14 +11,17 @@ const AboutPage: React.Page = async () => {
   const t = await getTranslations();
   return (
     <section className="min-h-[calc(100dvh-210px)] antialiased max-w-4xl mx-4 lg:mx-auto lg:py-12">
-      <h1
-        className={cn(
-          "text-5xl md:text-8xl",
-          "font-semibold my-4 tracking-tighter text-center",
-        )}
-      >
-        {t("about.title")}
-      </h1>
+      <div className="flex justify-center gap-5">
+        <Image src="/crow_1.svg" alt="crow" width={120} height={120} />
+        <h1
+          className={cn(
+            "text-5xl md:text-8xl",
+            "font-semibold my-4 tracking-tighter text-center",
+          )}
+        >
+          {t("about.title")}
+        </h1>
+      </div>
       <div className="grid md:grid-cols-2 gap-20 items-start my-20">
         <Image
           src={"/bilguun_pfp.jpg"}
@@ -36,14 +39,18 @@ const AboutPage: React.Page = async () => {
         </div>
       </div>
       <SkillSection />
-      <h1
-        className={cn(
-          "text-5xl md:text-8xl",
-          "font-semibold mt-52 mb-12 tracking-tighter text-center",
-        )}
-      >
-        {t("about.more")}
-      </h1>
+
+      <div className="flex justify-center gap-5 mt-52 mb-12">
+        <Image src="/cat.svg" alt="crow" width={90} height={90} />
+        <h1
+          className={cn(
+            "text-5xl md:text-8xl",
+            "font-semibold tracking-tighter text-center",
+          )}
+        >
+          {t("about.more")}
+        </h1>
+      </div>
       {/* TODO: make component */}
       <div className="grid md:grid-cols-3 gap-5 items-start my-20">
         <Image
