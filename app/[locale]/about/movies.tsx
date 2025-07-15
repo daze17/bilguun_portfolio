@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { LayoutGrid } from "@/components/ui/layout-grid";
 import { cn } from "@/utils";
 
@@ -7,14 +9,17 @@ import { cn } from "@/utils";
 const FavMoviesSection: React.FC = () => {
   return (
     <div className="h-screen w-full">
-      <h1
-        className={cn(
-          "text-3xl md:text-5xl",
-          "font-semibold mt-52 mb-12 tracking-tighter text-center",
-        )}
-      >
-        favorite movies.
-      </h1>
+      <div className="flex justify-center gap-5 mt-52 mb-12">
+        <Image src="/film.svg" alt="crow" width={50} height={50} />
+        <h1
+          className={cn(
+            "text-3xl md:text-5xl",
+            "font-semibold tracking-tighter text-center",
+          )}
+        >
+          favorite movies.
+        </h1>
+      </div>
       <LayoutGrid cards={cards} />
     </div>
   );
