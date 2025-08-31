@@ -1,8 +1,7 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
-import Image from "next/image";
-import React, { JSX, useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
+import React, { JSX, useState } from "react";
 
 import { cn } from "@/utils";
 

@@ -1,7 +1,13 @@
-// next.config.js
-const withNextIntl = require("next-intl/plugin")();
+import { fileURLToPath } from "node:url";
 
-module.exports = withNextIntl({
+import { createJiti } from "jiti";
+import withNextIntl from "next-intl/plugin";
+
+const jiti = createJiti(fileURLToPath(import.meta.url));
+
+await jiti.import("./app/env");
+
+export default withNextIntl({
   images: {
     remotePatterns: [
       {
@@ -24,4 +30,5 @@ module.exports = withNextIntl({
       },
     ],
   },
+  transpilePackages: ["@t3-oss/env-nextjs", "@t3-oss/env-core"],
 });
