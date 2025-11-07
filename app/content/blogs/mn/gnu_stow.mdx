@@ -33,22 +33,24 @@ GNU Stow бол симлинк ферм менежер /symlink farm manager/ б
 
 ### Бүтэц ингэж харагдана:
 
+GNU Stow нь **package** буюу багц системтэй ажилладаг - dotfiles хавтас доторх дэд хавтас бүр таны HOME директорийн бүтцийг дуурайна:
+
 ```
 home/
     dotfiles/
-        .config/
-            zsh/
-                [...some files]
-        .local/
-            share/
-                uzbl/
-                    [...some files]
-        .vim/
-            [...some files]
-        .bashrc
-        .bash_profile
-        .bash_logout
-        .vimrc
+        zsh/
+            .zshrc
+            .config/
+                zsh/
+                    [...zsh тохиргооны файлууд]
+        vim/
+            .vimrc
+            .vim/
+                [...vim файлууд]
+        bash/
+            .bashrc
+            .bash_profile
+            .bash_logout
 ```
 
 Дараагийн хэсгүүдэд бид таны dotfiles-ыг үр дүнтэй удирдахын тулд GNU Stow-г хэрхэн тохируулж, ашиглах талаар судалж үзэх болно.
@@ -67,54 +69,66 @@ home/
    cd ~/dotfiles
 ```
 
-3. Ямар нэгэн асуудал үүсч магадгүй гээд dotfiles-ыг ориг хувилбараас нь copy-хийж авъя. .zshrc файл дээр жишээ туршиж үзэе.
+3. Тохиргооны package хавтсууд үүсгэх. Жишээ болгон zsh-ээс эхэлье:
 
 ```
-   mkdir ~/copy_dotfiles
-   cp ~/.zshrc ~/copy_dotfiles/.zshrc
-   cp -R ~/.config ~/copy_dotfiles/
+   mkdir -p ~/dotfiles/zsh
 ```
 
-4. Тохиргооны файлуудаа шинээр үүсгэсэн ~/dotfiles/ хавтсанд хуулая.
+4. Тохиргооны файлуудыг package хавтсанд хуулах, дэд хавтсын бүтцийг хадгална.
 
+.zshrc файлыг (HOME дээр шууд байдаг):
 ```
-   cd $HOME/dotfiles
-   mv ~/copy_dotfiles/.zshrc ~/dotfiles/.zshrc
-   mv ~/copy_dotfiles/.config ~/dotfiles/.config
+   mv ~/.zshrc ~/dotfiles/zsh/.zshrc
+```
+
+.config доторх файлуудыг (HOME/.config дээр байдаг):
+```
+   mkdir -p ~/dotfiles/zsh/.config
+   mv ~/.config/zsh ~/dotfiles/zsh/.config/
 ```
 
 5. Symlinks үүсгэх
 
-```
-   stow -t . ~/dotfiles/.zshrc
-   stow -t . ~/dotfiles/.config
-```
-
-Эсвэл
+**dotfiles хавтас** руугаа ороод Stow ашиглан симлинк үүсгэнэ:
 
 ```
-   stow -t .
+cd ~/dotfiles
+stow zsh
 ```
+
+Энэ нь таны HOME цэсэн дээр ~/dotfiles/zsh/ хавтсан дахь файлууд руу симлинк үүсгэнэ.
 
 6. Шалгаж үзэх
 
+HOME цэсэн дээрх симлинкүүдийг шалгаарай:
+
 ```
-   ll -a
+   ls -la ~/ | grep zshrc
 ```
 
-Хэрвээ амжилттай үүссэн бол дараах зураг шиг харагдах болно.
+Ингэж харагдах ёстой: `.zshrc -> dotfiles/zsh/.zshrc`
+
+Хэрвээ амжилттай үүссэн бол таны dotfiles хавтас дараах зураг шиг харагдах болно:
+
 ![dotfiles directory](/blog/gnu_stow/dotfiles_directory.png)
 
-Бидний HOME цэсэн дээр ингэж харагдана
+Бидний HOME цэсэн дээр симлинкүүд ингэж харагдана:
+
 ![old config directory](/blog/gnu_stow/old_config_directory.png)
 
-7. Git config
+7. Git-ээр хянах
+
+Git ашиглах нь таны **өөрчлөлтүүдийг хянах, буцаах, өөр өөр компьютерүүд дээр dotfiles-ыг синк хийх** боломжийг олгоно. Git эхлүүлж, dotfiles-аа commit хийе:
 
 ```
+   cd ~/dotfiles
    git init
    git add .
    git commit -m "Initial commit of dotfiles"
 ```
+
+**Зөвлөмж:** Бусад хэрэгслүүдэд (vim, tmux, bash гэх мэт) нэмэлт package-үүд үүсгэж болно. Дараа нь package бүрт `stow <package-нэр>` ажиллуулах, эсвэл бүх package-үүдийг зэрэг stow хийхийн тулд `stow */` ашиглаарай.
 
 ### Нэмэлт:
 
