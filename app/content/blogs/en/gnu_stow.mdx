@@ -33,22 +33,24 @@ Stow **mirrors** your configuration file structure in your HOME directory, ensur
 
 ## The structure looks like this:
 
+GNU Stow works with **packages** - subdirectories within your dotfiles folder. Each package mirrors your HOME directory structure:
+
 ```
 home/
     dotfiles/
-        .config/
-            zsh/
-                [...some files]
-        .local/
-            share/
-                uzbl/
-                    [...some files]
-        .vim/
-            [...some files]
-        .bashrc
-        .bash_profile
-        .bash_logout
-        .vimrc
+        zsh/
+            .zshrc
+            .config/
+                zsh/
+                    [...zsh config files]
+        vim/
+            .vimrc
+            .vim/
+                [...vim files]
+        bash/
+            .bashrc
+            .bash_profile
+            .bash_logout
 ```
 
 Let's explore how to set up and use GNU Stow:
@@ -67,20 +69,23 @@ If you use MacOS and have homebrew installed, simply run:
    cd ~/dotfiles
 ```
 
-3. To prevent issues, let's copy the original dotfiles. We'll test with .zshrc file.
+3. Create package directories for your configs. We'll start with zsh as an example:
 
 ```
-   mkdir ~/copy_dotfiles
-   cp ~/.zshrc ~/copy_dotfiles/.zshrc
-   cp -R ~/.config ~/copy_dotfiles/
+   mkdir -p ~/dotfiles/zsh
 ```
 
-4. Move configuration files to the newly created ~/dotfiles/ directory.
+4. Move configuration files to the package directory, preserving any subdirectory structure.
 
+For .zshrc (which goes directly in HOME):
 ```
-   cd $HOME/dotfiles
-   mv ~/copy_dotfiles/.zshrc ~/dotfiles/.zshrc
-   mv ~/copy_dotfiles/.config ~/dotfiles/.config
+   mv ~/.zshrc ~/dotfiles/zsh/.zshrc
+```
+
+For files in .config (which goes in HOME/.config):
+```
+   mkdir -p ~/dotfiles/zsh/.config
+   mv ~/.config/zsh ~/dotfiles/zsh/.config/
 ```
 
 5. Create symlinks
@@ -90,25 +95,31 @@ Navigate to your **dotfiles directory** and use Stow to create symlinks:
 ```
 cd ~/dotfiles
 stow zsh
-stow config
 ```
+
+This creates symlinks from your HOME directory to the files in ~/dotfiles/zsh/
 
 6. Verify
 
+Check your HOME directory to see the symlinks:
+
 ```
-   ll -a
+   ls -la ~/ | grep zshrc
 ```
 
-If successful, it should look like this:
+You should see something like: `.zshrc -> dotfiles/zsh/.zshrc`
+
+If successful, your dotfiles directory structure should look like this:
 
 ![dotfiles directory](/blog/gnu_stow/dotfiles_directory.png)
 
-Our HOME directory will look like this:
+And your HOME directory will have symlinks like this:
 
 ![old config directory](/blog/gnu_stow/old_config_directory.png)
 
 7. To track your dotfiles with Git:
-	 Using Git ensures that you can **track changes, revert mistakes, and sync dotfiles across different machines**. To initialize Git and commit your dotfiles:
+
+Using Git ensures that you can **track changes, revert mistakes, and sync dotfiles across different machines**. To initialize Git and commit your dotfiles:
 
 ```
    cd ~/dotfiles
@@ -116,6 +127,8 @@ Our HOME directory will look like this:
    git add .
    git commit -m "Initial commit of dotfiles"
 ```
+
+**Tip:** You can create additional packages for other tools (vim, tmux, bash, etc.) following the same structure. Then run `stow <package-name>` for each one, or `stow */` to stow all packages at once.
 
 # Additional:
 ### Ignoring Files in Stow
