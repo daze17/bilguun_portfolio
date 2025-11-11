@@ -5,7 +5,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "eslint": "eslint \"{app,test}/**/*.{ts,tsx}\""
+    "eslint": "eslint \"{app,test}/**/*.{ts,tsx}\"",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.2",
@@ -21,6 +25,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "drizzle-orm": "^0.44.7",
     "eslint": "^9.24.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "framer-motion": "^12.6.3",
@@ -32,6 +37,7 @@
     "next-intl": "^4.0.2",
     "next-mdx-remote": "^5.0.0",
     "next-themes": "^0.4.6",
+    "postgres": "^3.4.7",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.55.0",
@@ -51,6 +57,7 @@
     "@typescript-eslint/eslint-plugin": "^8.29.0",
     "@typescript-eslint/parser": "^8.29.0",
     "autoprefixer": "^10.4.21",
+    "drizzle-kit": "^0.31.6",
     "postcss": "^8.5.3",
     "tailwindcss": "3.4.17"
   },
