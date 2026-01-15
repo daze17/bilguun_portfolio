@@ -1,9 +1,10 @@
 import { fileURLToPath } from "node:url";
 
 import { createJiti } from "jiti";
-import withNextIntl from "next-intl/plugin";
+import createNextIntlPlugin from "next-intl/plugin";
 
 const jiti = createJiti(fileURLToPath(import.meta.url));
+const withNextIntl = createNextIntlPlugin();
 
 await jiti.import("./app/env");
 
