@@ -17,7 +17,7 @@ const FavMoviesSection: React.FC = () => {
             "font-semibold tracking-tighter text-center",
           )}
         >
-          favorite movies.
+          some movies I like.
         </h1>
       </div>
       <LayoutGrid cards={cards} />
