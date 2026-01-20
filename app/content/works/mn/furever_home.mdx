@@ -1,0 +1,94 @@
+
+
+---
+title: 'Furever Home'
+publishedAt: '2026-01-18'
+summary: 'Pet caring website'
+image: '/work/furever_home/home.png'
+stacks: Next.js, Nest.js, Ts-rest, AWS ECS, AWS SES, AWS S3, AWS CloudFront, PostgresSQL, Tailwind CSS, Shadcn UI,
+url: 'https://fureverhome.mn'
+---
+
+## Overview
+
+Furever Home is a pet caring platform that connects pet owners with reliable pet care services. Built with a modern tech stack including Next.js, tRPC, and deployed across multiple environments for reliability and scalability.
+
+## Tech Stack
+
+- **Frontend**: Next.js, Tailwind CSS, Shadcn UI
+- **Backend**: tRPC for type-safe API calls
+- **Database**: Neon DB (serverless Postgres)
+- **Storage**: AWS S3 for media files
+- **Infrastructure**: Docker, GitHub Actions CI/CD
+
+## Architecture
+
+The project follows a monorepo structure with separate packages for the customer-facing frontend and backend services. This separation allows for independent scaling and deployment of each component.
+
+```
+furever-home/
+├── apps/
+│   ├── backend/customer/    # tRPC API server
+│   └── frontend/customer/   # Next.js app
+├── packages/                # Shared utilities
+└── docker-compose.yaml      # Local development
+```
+
+## Local Development
+
+For local development, Docker Compose spins up all required services:
+
+```bash
+# Start all services (Postgres, Redis, Mailhog, MinIO)
+docker-compose up -d
+
+# Run backend
+pnpm dev --filter=customer_backend
+
+# Run frontend
+pnpm dev --filter=customer_front
+```
+
+![gnu_stow](/work/furever_home/pet_list.png)
+
+## Deployment Strategy
+
+I implemented a multi-environment deployment strategy with automated CI/CD pipelines:
+
+### Staging Environment (Render)
+
+Pushing to the `staging` branch triggers an automated deployment:
+
+1. GitHub Action builds the Docker image
+2. Image is pushed to GitHub Container Registry (GHCR)
+3. Render pulls and deploys the new image
+
+This provides a quick and cost-effective way to test changes before production.
+
+### Production Environment (AWS ECS)
+
+Production runs on AWS ECS for better scalability and reliability:
+
+1. Push to `main` branch triggers the production workflow
+2. Docker image is built and pushed to GHCR
+3. AWS ECS pulls the latest image and performs a rolling deployment
+4. Frontend is deployed to Vercel for optimal edge performance
+
+```bash
+# Deployment flow
+git checkout main
+git merge staging
+git push origin main
+```
+
+## CI/CD Pipeline
+
+The project uses GitHub Actions for continuous integration and deployment:
+
+- **prod.yml** - Production backend deployment to AWS ECS
+- **stg.yml** - Staging backend deployment to Render
+- **vercel-customer.yml** - Frontend deployment to Vercel
+
+## Conclusion
+
+Building Furever Home was an exercise in creating a production-ready application with proper DevOps practices. The multi-environment setup ensures that changes are thoroughly tested in staging before reaching production, while the automated CI/CD pipelines make deployments reliable and repeatable.
