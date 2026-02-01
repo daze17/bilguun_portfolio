@@ -1,0 +1,222 @@
+---
+title: 'Neovim'
+publishedAt: '2026-02-01'
+summary: 'My Neovim setup for daily development'
+---
+
+Neovim is my primary code editor. After trying VS Code, JetBrains IDEs, and others, I keep coming back to Neovim for its speed, keyboard-driven workflow, and endless customization. Here's how my setup works.
+
+![neovim](/blog/neovim/neovim.png)
+
+# Why Neovim?
+
+- **Speed** - Opens instantly, handles large files without lag
+- **Keyboard-first** - Never leave the home row
+- **Customizable** - Every aspect can be configured in Lua
+- **Portable** - Same config works on any machine with Neovim installed
+
+# Configuration Structure
+
+My config follows a modular structure:
+
+```
+~/.config/nvim/
+├── init.lua
+├── lua/
+│   ├── core/
+│   │   ├── options.lua
+│   │   ├── keymaps.lua
+│   │   ├── autocmds.lua
+│   │   └── lazy.lua
+│   └── plugins/
+│       ├── ui.lua
+│       ├── navigation.lua
+│       ├── completion.lua
+│       ├── editor.lua
+│       ├── git.lua
+│       ├── formatting.lua
+│       ├── treesitter.lua
+│       └── lsp/
+└── lazy-lock.json
+```
+
+This separation keeps things organized - core settings in one place, plugins grouped by function.
+
+# Plugin Manager: lazy.nvim
+
+I use [lazy.nvim](https://github.com/folke/lazy.nvim) for plugin management. It handles:
+
+- Lazy loading plugins on demand
+- Automatic installation
+- Lock file for reproducible setups
+- Clean UI for managing updates
+
+# Theme: Rose Pine
+
+The [Rose Pine](https://rosepinetheme.com/) colorscheme with the "moon" variant gives a clean, easy-on-the-eyes aesthetic:
+
+```lua
+{
+  "rose-pine/neovim",
+  name = "rose-pine",
+  config = function()
+    require("rose-pine").setup({
+      variant = "auto",
+      dark_variant = "moon",
+    })
+    vim.cmd("colorscheme rose-pine")
+  end,
+}
+```
+
+# Navigation
+
+## Telescope
+
+[Telescope](https://github.com/nvim-telescope/telescope.nvim) is the heart of my navigation workflow - a fuzzy finder for everything:
+
+```
+Space + sf        Search files
+Space + sg        Live grep (search text)
+Space + sh        Search help tags
+Space + sk        Search keymaps
+Space + Space     Switch buffers
+Space + /         Fuzzy search current buffer
+Space + s.        Recent files
+Space + sn        Search Neovim config
+```
+
+## Neo-tree
+
+For file tree navigation, [Neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim) provides a sidebar explorer:
+
+- `Space + e` - Toggle file tree
+
+# Completion: nvim-cmp
+
+[nvim-cmp](https://github.com/hrsh7th/nvim-cmp) handles autocompletion with these sources:
+
+- **LSP** - Language server completions
+- **LuaSnip** - Snippet expansions
+- **Path** - File path completions
+
+Key bindings:
+
+```
+Ctrl + n/p        Navigate items
+Enter             Confirm selection
+Ctrl + Space      Trigger completion
+Ctrl + l/h        Jump in snippets
+```
+
+# LSP Integration
+
+Language Server Protocol support provides:
+
+- Go-to definition
+- Find references
+- Hover documentation
+- Rename symbols
+- Code actions
+
+The LSP config lives in `lua/plugins/lsp/` with server-specific settings.
+
+# Git Integration
+
+## Lazygit
+
+`Space + lg` opens [Lazygit](/blog/lazygit) in a floating terminal - my preferred way to handle commits, branches, and complex git operations.
+
+## Gitsigns
+
+[Gitsigns](https://github.com/lewis6991/gitsigns.nvim) shows inline git status:
+
+- Signs in the gutter for added/changed/deleted lines
+- `]c` / `[c` - Jump between hunks
+- Stage, reset, and preview hunks without leaving the editor
+- Current line blame
+
+# Editor Enhancements
+
+## Which-key
+
+`Space + ?` shows available keybindings - essential for discovering commands.
+
+## Mini.nvim
+
+A collection of small but useful modules:
+
+- **mini.ai** - Better text objects (`a"`, `i(`, etc.)
+- **mini.surround** - Add/change/delete surrounding characters
+- **mini.statusline** - Clean status bar
+
+## Autopairs
+
+Automatically closes brackets, quotes, and other paired characters.
+
+## Trouble
+
+`Space + xx` opens a better diagnostics panel - errors, warnings, and TODOs in one place.
+
+# Formatting
+
+[Conform.nvim](https://github.com/stevearc/conform.nvim) handles formatting on save:
+
+```lua
+formatters_by_ft = {
+  lua = { "stylua" },
+  typescript = { "prettierd", "prettier" },
+  typescriptreact = { "prettierd", "prettier" },
+}
+```
+
+# Treesitter
+
+[Treesitter](https://github.com/nvim-treesitter/nvim-treesitter) provides:
+
+- Accurate syntax highlighting
+- Better code folding
+- Incremental selection
+- Text objects based on syntax
+
+# Core Keymaps
+
+Beyond plugins, these core mappings improve daily use:
+
+```
+Ctrl + h/j/k/l    Navigate between splits
+Ctrl + s          Save file (works in insert mode too)
+Esc               Clear search highlights
+Space + pv        Open netrw
+Space + tn        New tab
+```
+
+# AI: Supermaven
+
+[Supermaven](https://supermaven.com/) provides AI-powered code completion - faster than Copilot with better context understanding.
+
+# Getting Started
+
+To use my config:
+
+```bash
+# Backup existing config
+mv ~/.config/nvim ~/.config/nvim.bak
+
+# Clone dotfiles and stow
+git clone https://github.com/daze17/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+stow nvim
+
+# Open Neovim - plugins install automatically
+nvim
+```
+
+# Tips for Learning
+
+1. **Start with core motions** - `hjkl`, `w`, `b`, `e`, `0`, `$`
+2. **Learn one plugin at a time** - Master Telescope before adding more
+3. **Use which-key** - Press `Space` and wait to see options
+4. **Customize gradually** - Understand what you're adding
+
+The config is in my [dotfiles repo](https://github.com/daze17/dotfiles) - feel free to explore and adapt it for your workflow.
