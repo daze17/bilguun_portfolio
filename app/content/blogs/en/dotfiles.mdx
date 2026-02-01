@@ -1,0 +1,153 @@
+---
+title: 'My Dotfiles'
+publishedAt: '2026-02-01'
+summary: 'A tour of my macOS development environment'
+---
+
+After years of tweaking and refining my development setup, I've finally organized everything into a single [dotfiles repository](https://github.com/daze17/dotfiles). This post walks through the tools I use daily and how they're configured.
+
+![dotfiles](/blog/dotfiles/dotfiles.svg)
+
+# Why Dotfiles?
+
+Configuration files (dotfiles) define your development environment. By version controlling them, you can:
+
+- **Sync across machines** - Same setup on your work and personal computer
+- **Recover quickly** - Reinstall everything after a crash or new machine
+- **Track experiments** - Roll back when something breaks
+
+I manage my dotfiles with [GNU Stow](/blog/gnu_stow) - check out that post for the details.
+
+# The Stack
+
+Here's what my setup includes:
+
+- **Neovim** - Primary code editor
+- **tmux** - Terminal multiplexer
+- **Kitty/Ghostty** - Terminal emulators
+- **yabai** - Tiling window manager
+- **skhd** - Hotkey daemon
+- **Zsh + Oh My Zsh** - Shell environment
+
+# Shell Configuration
+
+My `.zshrc` is kept minimal. Here are the key parts:
+
+```bash
+# Theme
+ZSH_THEME="robbyrussell"
+
+# Plugins
+plugins=(git zsh-autosuggestions)
+
+# Editor
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
+
+# Alias vim to nvim
+alias vim="nvim"
+```
+
+I use **Oh My Zsh** with just two plugins:
+- `git` for git aliases and prompt info
+- `zsh-autosuggestions` for fish-like command suggestions
+
+The rest handles version managers: **NVM** for Node.js, **RVM** for Ruby, and **Mise** for other tools.
+
+# Neovim
+
+Neovim is where I spend most of my coding time. My config uses Lua and includes:
+
+- LSP support for multiple languages
+- Telescope for fuzzy finding
+- Treesitter for syntax highlighting
+- Custom keybindings for efficiency
+
+The config lives in `~/.config/nvim/` and is structured for easy maintenance.
+
+# Terminal: Kitty & Ghostty
+
+I've used Kitty for years and recently started experimenting with Ghostty. Both configs include:
+
+- **Custom color schemes** with dark/light theme switching
+- **Font configuration** optimized for coding
+- **Keyboard shortcuts** for splits and tabs
+
+The theme switching is handled through symlinks - `theme.conf` points to either `dark-theme.auto.conf` or `light-theme.auto.conf`.
+
+# Window Management: yabai + skhd
+
+On macOS, **yabai** handles automatic window tiling while **skhd** provides system-wide hotkeys.
+
+Common shortcuts I use:
+
+```bash
+# Focus windows
+alt - h : yabai -m window --focus west
+alt - l : yabai -m window --focus east
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+
+# Move windows
+shift + alt - h : yabai -m window --swap west
+shift + alt - l : yabai -m window --swap east
+```
+
+This vim-like navigation makes managing windows feel natural.
+
+# tmux
+
+For terminal session management, [tmux](/blog/tmux) is essential. My config includes:
+
+- Vim-style pane navigation
+- Mouse support enabled
+- Custom status bar
+- Sensible prefix key remapping
+
+# Repository Structure
+
+```
+dotfiles/
+├── .zshrc
+├── .config/
+│   ├── nvim/
+│   ├── kitty/
+│   ├── ghostty/
+│   ├── tmux/
+│   ├── yabai/
+│   └── skhd/
+├── vscode/
+└── zed/
+```
+
+Each tool's configuration is self-contained, making it easy to stow individual packages.
+
+# Getting Started
+
+To use these dotfiles:
+
+```bash
+# Clone the repo
+git clone https://github.com/daze17/dotfiles.git ~/dotfiles
+
+# Install GNU Stow
+brew install stow
+
+# Stow individual packages
+cd ~/dotfiles
+stow nvim
+stow tmux
+stow kitty
+
+# Or stow everything
+stow */
+```
+
+# Final Thoughts
+
+A well-organized dotfiles repo is an investment that pays off every time you set up a new machine or recover from a crash. Start simple - even tracking just your `.zshrc` and editor config is valuable.
+
+Feel free to explore my [dotfiles](https://github.com/daze17/dotfiles) for ideas. The best dotfiles are the ones you understand and actively maintain.
