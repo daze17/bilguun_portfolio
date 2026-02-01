@@ -1,23 +1,23 @@
 ---
 title: 'Neovim'
 publishedAt: '2026-02-01'
-summary: 'My Neovim setup for daily development'
+summary: 'Миний өдөр тутмын хөгжүүлэлтэд зориулсан Neovim тохиргоо'
 ---
 
-Neovim is my primary code editor. After trying VS Code, JetBrains IDEs, and others, I keep coming back to Neovim for its speed, keyboard-driven workflow, and endless customization. Here's how my setup works.
+Neovim бол миний үндсэн код засварлагч. VS Code, JetBrains IDE болон бусад хэрэгслүүдийг туршиж үзсэний дараа би Neovim-ийн хурд, [гарын товчлуур дээр суурилсан ажлын урсгал](/blog/keyboard_driven) болон хязгааргүй тохируулах боломжийн улмаас буцаж ирсээр байна.
 
 ![neovim](/blog/neovim/neovim.png)
 
-# Why Neovim?
+# Яагаад Neovim?
 
-- **Speed** - Opens instantly, handles large files without lag
-- **Keyboard-first** - Never leave the home row
-- **Customizable** - Every aspect can be configured in Lua
-- **Portable** - Same config works on any machine with Neovim installed
+- **Хурд** - Шууд нээгддэг, том файлуудыг удаашралгүй ажиллуулдаг
+- **Гар дээр суурилсан** - Home row-оос хэзээ ч салахгүй
+- **Тохируулах боломжтой** - Бүх зүйлийг Lua-гаар тохируулж болно
+- **Зөөврийн** - Neovim суулгасан аль ч машин дээр ижил тохиргоо ажилладаг
 
-# Configuration Structure
+# Тохиргооны Бүтэц
 
-My config follows a modular structure:
+Миний тохиргоо модуль бүтэцтэй:
 
 ```
 ~/.config/nvim/
@@ -40,20 +40,20 @@ My config follows a modular structure:
 └── lazy-lock.json
 ```
 
-This separation keeps things organized - core settings in one place, plugins grouped by function.
+Энэ салгалт бүх зүйлийг цэгцтэй байлгадаг - үндсэн тохиргоо нэг газар, plugin-ууд функцээр бүлэглэгдсэн.
 
 # Plugin Manager: lazy.nvim
 
-I use [lazy.nvim](https://github.com/folke/lazy.nvim) for plugin management. It handles:
+Би plugin удирдлагад [lazy.nvim](https://github.com/folke/lazy.nvim) ашигладаг:
 
-- Lazy loading plugins on demand
-- Automatic installation
-- Lock file for reproducible setups
-- Clean UI for managing updates
+- Plugin-уудыг шаардлагатай үед lazy load хийх
+- Автомат суулгалт
+- Давтагдах тохиргооны lock файл
+- Update удирдах цэвэрхэн UI
 
 # Theme: Rose Pine
 
-The [Rose Pine](https://rosepinetheme.com/) colorscheme with the "moon" variant gives a clean, easy-on-the-eyes aesthetic:
+[Rose Pine](https://rosepinetheme.com/) colorscheme "moon" хувилбартай нь цэвэрхэн, нүдэнд таатай харагдал өгдөг:
 
 ```lua
 {
@@ -69,98 +69,98 @@ The [Rose Pine](https://rosepinetheme.com/) colorscheme with the "moon" variant 
 }
 ```
 
-# Navigation
+# Навигаци
 
 ## Telescope
 
-[Telescope](https://github.com/nvim-telescope/telescope.nvim) is the heart of my navigation workflow - a fuzzy finder for everything:
+[Telescope](https://github.com/nvim-telescope/telescope.nvim) бол миний навигацийн ажлын урсгалын гол хэсэг - бүх зүйлд зориулсан fuzzy finder:
 
 ```
-Space + sf        Search files
-Space + sg        Live grep (search text)
-Space + sh        Search help tags
-Space + sk        Search keymaps
-Space + Space     Switch buffers
-Space + /         Fuzzy search current buffer
-Space + s.        Recent files
-Space + sn        Search Neovim config
+Space + sf        Файл хайх
+Space + sg        Live grep (текст хайх)
+Space + sh        Help tag хайх
+Space + sk        Keymap хайх
+Space + Space     Buffer солих
+Space + /         Одоогийн buffer дотор fuzzy хайлт
+Space + s.        Сүүлийн файлууд
+Space + sn        Neovim тохиргоо хайх
 ```
 
 ## Neo-tree
 
-For file tree navigation, [Neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim) provides a sidebar explorer:
+Файлын мод навигацид [Neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim) sidebar explorer өгдөг:
 
-- `Space + e` - Toggle file tree
+- `Space + e` - Файлын мод нээх/хаах
 
 # Completion: nvim-cmp
 
-[nvim-cmp](https://github.com/hrsh7th/nvim-cmp) handles autocompletion with these sources:
+[nvim-cmp](https://github.com/hrsh7th/nvim-cmp) эдгээр эх сурвалжуудаас autocompletion хийдэг:
 
-- **LSP** - Language server completions
-- **LuaSnip** - Snippet expansions
-- **Path** - File path completions
+- **LSP** - Language server completion
+- **LuaSnip** - Snippet expansion
+- **Path** - Файлын зам completion
 
-Key bindings:
+Товчлуурууд:
 
 ```
-Ctrl + n/p        Navigate items
-Enter             Confirm selection
-Ctrl + Space      Trigger completion
-Ctrl + l/h        Jump in snippets
+Ctrl + n/p        Item хооронд шилжих
+Enter             Сонголт баталгаажуулах
+Ctrl + Space      Completion идэвхжүүлэх
+Ctrl + l/h        Snippet дотор үсрэх
 ```
 
-# LSP Integration
+# LSP Интеграци
 
-Language Server Protocol support provides:
+Language Server Protocol дэмжлэг нь:
 
-- Go-to definition
-- Find references
+- Definition руу очих
+- Reference олох
 - Hover documentation
-- Rename symbols
-- Code actions
+- Symbol нэр солих
+- Code action
 
-The LSP config lives in `lua/plugins/lsp/` with server-specific settings.
+LSP тохиргоо `lua/plugins/lsp/` дотор server-ийн тусгай тохиргоотой байрладаг.
 
-# Git Integration
+# Git Интеграци
 
 ## Lazygit
 
-`Space + lg` opens [Lazygit](/blog/lazygit) in a floating terminal - my preferred way to handle commits, branches, and complex git operations.
+`Space + lg` нь [Lazygit](/blog/lazygit)-ийг floating terminal-д нээдэг - commit, branch болон төвөгтэй git үйлдлүүд хийх миний дуртай арга.
 
 ## Gitsigns
 
-[Gitsigns](https://github.com/lewis6991/gitsigns.nvim) shows inline git status:
+[Gitsigns](https://github.com/lewis6991/gitsigns.nvim) inline git статус харуулдаг:
 
-- Signs in the gutter for added/changed/deleted lines
-- `]c` / `[c` - Jump between hunks
-- Stage, reset, and preview hunks without leaving the editor
-- Current line blame
+- Нэмсэн/өөрчилсөн/устгасан мөрүүдэд gutter дээр тэмдэг
+- `]c` / `[c` - Hunk хооронд үсрэх
+- Editor-оос гарахгүйгээр stage, reset, preview хийх
+- Одоогийн мөрийн blame
 
-# Editor Enhancements
+# Editor Сайжруулалтууд
 
 ## Which-key
 
-`Space + ?` shows available keybindings - essential for discovering commands.
+`Space + ?` боломжтой keybinding-үүдийг харуулдаг - команд олоход зайлшгүй шаардлагатай.
 
 ## Mini.nvim
 
-A collection of small but useful modules:
+Жижиг боловч хэрэгтэй модулиудын цуглуулга:
 
-- **mini.ai** - Better text objects (`a"`, `i(`, etc.)
-- **mini.surround** - Add/change/delete surrounding characters
-- **mini.statusline** - Clean status bar
+- **mini.ai** - Илүү сайн text object (`a"`, `i(` гэх мэт)
+- **mini.surround** - Хүрээлэх тэмдэгт нэмэх/өөрчлөх/устгах
+- **mini.statusline** - Цэвэрхэн status bar
 
 ## Autopairs
 
-Automatically closes brackets, quotes, and other paired characters.
+Хаалт, хашилт болон бусад хос тэмдэгтүүдийг автоматаар хаадаг.
 
 ## Trouble
 
-`Space + xx` opens a better diagnostics panel - errors, warnings, and TODOs in one place.
+`Space + xx` илүү сайн diagnostics panel нээдэг - алдаа, анхааруулга, TODO-ууд нэг газар.
 
 # Formatting
 
-[Conform.nvim](https://github.com/stevearc/conform.nvim) handles formatting on save:
+[Conform.nvim](https://github.com/stevearc/conform.nvim) хадгалахад formatting хийдэг:
 
 ```lua
 formatters_by_ft = {
@@ -172,51 +172,51 @@ formatters_by_ft = {
 
 # Treesitter
 
-[Treesitter](https://github.com/nvim-treesitter/nvim-treesitter) provides:
+[Treesitter](https://github.com/nvim-treesitter/nvim-treesitter) дараах зүйлсийг хангадаг:
 
-- Accurate syntax highlighting
-- Better code folding
+- Нарийн syntax highlighting
+- Илүү сайн code folding
 - Incremental selection
-- Text objects based on syntax
+- Syntax дээр суурилсан text object
 
-# Core Keymaps
+# Үндсэн Keymap-үүд
 
-Beyond plugins, these core mappings improve daily use:
+Plugin-үүдээс гадна эдгээр үндсэн mapping-үүд өдөр тутмын ашиглалтыг сайжруулдаг:
 
 ```
-Ctrl + h/j/k/l    Navigate between splits
-Ctrl + s          Save file (works in insert mode too)
-Esc               Clear search highlights
-Space + pv        Open netrw
-Space + tn        New tab
+Ctrl + h/j/k/l    Split хооронд шилжих
+Ctrl + s          Файл хадгалах (insert mode-д ч ажилладаг)
+Esc               Хайлтын highlight арилгах
+Space + pv        netrw нээх
+Space + tn        Шинэ tab
 ```
 
 # AI: Supermaven
 
-[Supermaven](https://supermaven.com/) provides AI-powered code completion - faster than Copilot with better context understanding.
+[Supermaven](https://supermaven.com/) AI-д суурилсан код completion өгдөг - Copilot-оос хурдан, илүү сайн context ойлголттой.
 
-# Getting Started
+# Эхлэх
 
-To use my config:
+Миний тохиргоог ашиглахын тулд:
 
 ```bash
-# Backup existing config
+# Одоо байгаа тохиргоог нөөцлөх
 mv ~/.config/nvim ~/.config/nvim.bak
 
-# Clone dotfiles and stow
+# Dotfiles clone хийж stow хийх
 git clone https://github.com/daze17/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 stow nvim
 
-# Open Neovim - plugins install automatically
+# Neovim нээх - plugin-ууд автоматаар суугдана
 nvim
 ```
 
-# Tips for Learning
+# Сурах Зөвлөмжүүд
 
-1. **Start with core motions** - `hjkl`, `w`, `b`, `e`, `0`, `$`
-2. **Learn one plugin at a time** - Master Telescope before adding more
-3. **Use which-key** - Press `Space` and wait to see options
-4. **Customize gradually** - Understand what you're adding
+1. **Үндсэн motion-уудаас эхэл** - `hjkl`, `w`, `b`, `e`, `0`, `$`
+2. **Нэг plugin-ийг сайн сур** - Telescope-ийг эзэмшээд дараа нь нэмээрэй
+3. **Which-key ашигла** - `Space` дараад сонголтуудыг хүлээ
+4. **Аажмаар тохируул** - Нэмж байгаа зүйлээ ойлго
 
-The config is in my [dotfiles repo](https://github.com/daze17/dotfiles) - feel free to explore and adapt it for your workflow.
+Тохиргоо нь миний [dotfiles](/blog/dotfiles) дотор байгаа - [GNU Stow](/blog/gnu_stow) ашиглан [tmux](/blog/tmux) болон бусад тохиргоонуудтай хамт удирддаг.

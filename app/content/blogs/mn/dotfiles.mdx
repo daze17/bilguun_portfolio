@@ -1,38 +1,36 @@
-
 ---
-title: 'My Dotfiles'
+title: 'Dotfiles'
 publishedAt: '2026-02-01'
-summary: 'A tour of my macOS development environment'
+summary: 'би macOS хөгжүүлэлтийн орчныг хэрхэн ашигладаг талаарх'
 ---
 
-After years of tweaking and refining my development setup, I've finally organized everything into a single [dotfiles repository](https://github.com/daze17/dotfiles). This post walks through the tools I use daily and how they're configured.
+Олон жилийн турш хөгжүүлэлтийн орчноо тохируулж, сайжруулсны эцэст бүх зүйлээ нэг [dotfiles repository](https://github.com/daze17/dotfiles)-д цэгцэлсэн. Энэ нийтлэлд би өдөр тутам ашигладаг хэрэгслүүд болон тэдгээрийн тохиргооны талаар ярих болно.
 
 ![dotfiles](/blog/dotfiles/dotfiles.svg)
 
-# Why Dotfiles?
+# Яагаад Dotfiles?
 
-Configuration files (dotfiles) define your development environment. By version controlling them, you can:
+Тохиргооны файлууд (dotfiles) нь таны хөгжүүлэлтийн орчныг тодорхойлдог. Тэдгээрийг version control-д хадгалснаар та:
 
-- **Sync across machines** - Same setup on your work and personal computer
-- **Recover quickly** - Reinstall everything after a crash or new machine
-- **Track experiments** - Roll back when something breaks
+- **Компьютер хооронд sync хийх** - Ажлын болон хувийн компьютер дээр ижил тохиргоо
+- **Хурдан сэргээх** - Эвдрэл эсвэл шинэ төхөөрөмж ашиглах үед бүх зүйлийг дахин суулгах
+- **Хөгжүүлэлтийг хянах** - Ямар нэг зүйл эвдэрвэл буцаах
 
-I manage my dotfiles with [GNU Stow](/blog/gnu_stow) - check out that post for the details.
+Би dotfiles-аа [GNU Stow](/blog/gnu_stow) ашиглан удирддаг.
 
-# The Stack
+# Хэрэгслүүд
 
-Here's what my setup includes:
+Тохиргоонд орсон зүйлс:
 
-- **Neovim** - Primary code editor
-- **tmux** - Terminal multiplexer
-- **Kitty/Ghostty** - Terminal emulators
-- **yabai** - Tiling window manager
-- **skhd** - Hotkey daemon
-- **Zsh + Oh My Zsh** - Shell environment
+- [**Neovim**](/blog/neovim) - Үндсэн код editor
+- [**tmux**](/blog/tmux) - Терминал мультиплексер
+- **Kitty/Ghostty** - Терминал эмуляторууд
+- **yabai + skhd** - [Гарын товчлуур дээр суурилсан](/blog/keyboard_driven) цонх удирдлага
+- **Zsh + Oh My Zsh** - Shell орчин
 
-# Shell Configuration
+# Shell Тохиргоо
 
-My `.zshrc` is kept minimal. Here are the key parts:
+Би `.zshrc` тохиргоогоо ер нь бол маш энгийн байдлаар хадгалагдсан. Гол хэсгүүд нь:
 
 ```bash
 # Theme
@@ -48,67 +46,65 @@ else
   export EDITOR='nvim'
 fi
 
-# Alias vim to nvim
+# vim-ийг nvim руу чиглүүлэх
 alias vim="nvim"
 ```
 
-I use **Oh My Zsh** with just two plugins:
-- `git` for git aliases and prompt info
-- `zsh-autosuggestions` for fish-like command suggestions
+Би **Oh My Zsh**-ийг одоогын байдлаар зөвхөн хоёр plugin-тай ашигладаг:
+- `git` - git alias болон prompt мэдээлэл
+- `zsh-autosuggestions` - команд санал болгох
 
-The rest handles version managers: **NVM** for Node.js, **RVM** for Ruby, and **Mise** for other tools.
+Үлдсэн хэсэг нь version manager-үүдийг удирддаг: Node.js-д **NVM**, Ruby-д **RVM**, бусад хэрэгслүүдэд **Mise**.
 
 # Neovim
 
-Neovim is where I spend most of my coding time. My config uses Lua and includes:
+[Neovim](/blog/neovim) бол миний код бичих цагийн ихэнх хэсгийг өнгөрүүлдэг газар. Миний тохиргоо Lua ашигладаг бөгөөд дараах зүйлсийг агуулдаг:
 
-- LSP support for multiple languages
-- Telescope for fuzzy finding
-- Treesitter for syntax highlighting
-- Custom keybindings for efficiency
+- Олон хэлний LSP дэмжлэг
+- Telescope - fuzzy finding
+- Treesitter - syntax highlighting
+- Үр ашигтай ажиллахын тулд тусгай keybinding-үүд
 
-The config lives in `~/.config/nvim/` and is structured for easy maintenance.
+Тохиргоо нь `~/.config/nvim/` дотор байрладаг. Бүрэн мэдээллийг [Neovim нийтлэл](/blog/neovim)-ээс үзээрэй.
 
-# Terminal: Kitty & Ghostty
+# Терминал: Kitty & Ghostty
 
-I've used Kitty for years and recently started experimenting with Ghostty. Both configs include:
+Би Kitty-г олон жил ашигласан бөгөөд саяхан Ghostty-г туршиж эхэлсэн. Хоёуланд нь:
 
-- **Custom color schemes** with dark/light theme switching
-- **Font configuration** optimized for coding
-- **Keyboard shortcuts** for splits and tabs
+- **Тусгай өнгөний схем** - dark/light theme солих боломжтой
+- **Код бичихэд тохирсон фонт** тохиргоо
+- **Гарын товчлуурууд** - split болон tab-д зориулсан
 
-The theme switching is handled through symlinks - `theme.conf` points to either `dark-theme.auto.conf` or `light-theme.auto.conf`.
+Theme солих нь symlink-ээр удирдагддаг - `theme.conf` нь `dark-theme.auto.conf` эсвэл `light-theme.auto.conf` руу заадаг. Ингэснээр өдрийн цагаар light theme оройн цагаар dark theme автоматаар солих боломжтой.
 
-# Window Management: yabai + skhd
+# Цонх Удирдлага: yabai + skhd
 
-On macOS, **yabai** handles automatic window tiling while **skhd** provides system-wide hotkeys.
+macOS дээр **yabai** автоматаар цонх байрлуулдаг бол **skhd** систем даяарх hotkey-үүдийг хангадаг. [Гарын товчлуур дээр суурилсан ажлын урсгал](/blog/keyboard_driven)-г уншиж үзэхийг зөвлөж байна.
 
-Common shortcuts I use:
+Түгээмэл ашигладаг товчлуурууд:
 
 ```bash
-# Focus windows
+# Цонхонд фокус хийх
 alt - h : yabai -m window --focus west
 alt - l : yabai -m window --focus east
 alt - j : yabai -m window --focus south
 alt - k : yabai -m window --focus north
 
-# Move windows
+# Цонх зөөх
 shift + alt - h : yabai -m window --swap west
 shift + alt - l : yabai -m window --swap east
 ```
 
-This vim-like navigation makes managing windows feel natural.
-
 # tmux
 
-For terminal session management, [tmux](/blog/tmux) is essential. My config includes:
+Терминал session удирдахад [tmux](/blog/tmux) маш амар байдаг. Тохиргоонд:
 
-- Vim-style pane navigation
-- Mouse support enabled
-- Custom status bar
-- Sensible prefix key remapping
+- Vim хэв маягийн pane navigation
+- Хулганы дэмжлэг идэвхжүүлсэн
+- Тусгай status bar
+- Prefix key дахин тохируулсан
 
-# Repository Structure
+# Repository Бүтэц
 
 ```
 dotfiles/
@@ -124,31 +120,31 @@ dotfiles/
 └── zed/
 ```
 
-Each tool's configuration is self-contained, making it easy to stow individual packages.
+Хэрэгсэл бүрийн тохиргоо нь бие даасан бөгөөд тус тусад нь stow хийхэд хялбар.
 
-# Getting Started
+# Эхлэх
 
-To use these dotfiles:
+Эдгээр dotfiles-ийг ашиглахын тулд:
 
 ```bash
-# Clone the repo
+# Repo-г clone хийх
 git clone https://github.com/daze17/dotfiles.git ~/dotfiles
 
-# Install GNU Stow
+# GNU Stow суулгах
 brew install stow
 
-# Stow individual packages
+# Package-үүдийг тус тусад нь stow хийх
 cd ~/dotfiles
 stow nvim
 stow tmux
 stow kitty
 
-# Or stow everything
+# Эсвэл бүгдийг нь stow хийх
 stow */
 ```
 
-# Final Thoughts
+# Төгсгөлд нь
 
-A well-organized dotfiles repo is an investment that pays off every time you set up a new machine or recover from a crash. Start simple - even tracking just your `.zshrc` and editor config is valuable.
+Dotfiles repo ашиглах нь шинэ компьютер ашиглах эсвэл эвдрэл гэмтлээс сэргээх үед маш их хэрэг болдог аргачлал юм. Зөвхөн `.zshrc` болон editor тохиргоогоо хянах нь ч үнэ цэнэтэй.
 
-Feel free to explore my [dotfiles](https://github.com/daze17/dotfiles) for ideas. The best dotfiles are the ones you understand and actively maintain.
+Миний [dotfiles](https://github.com/daze17/dotfiles)-аас санаа авч болно. Та ч бас өөрийн dotfiles-г тохируулж ашиглаад үзээрэй.

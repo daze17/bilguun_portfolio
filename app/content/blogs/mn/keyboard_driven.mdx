@@ -1,0 +1,227 @@
+---
+title: 'Гарын Товчлуур Дээр Суурилсан Ажлын Урсгал'
+publishedAt: '2026-02-01'
+summary: 'Би Mac-аа хулгана хүрэлгүйгээр хэрхэн удирддаг'
+---
+
+Би хулганадаа бараг хүрдэггүй. Олон жилийн турш тохиргоогоо сайжруулсны эцэст бараг бүх зүйлийг гараар хийдэг болсон. Би [ppy](https://github.com/peppy) (Dean Herbert, [osu!](https://osu.ppy.sh/)-ийн бүтээгч)-ээс их санаа авсан - тэр 40% гар дээр хулгана огт хүрэлгүйгээр код бичдэгийг нь харах нь үнэхээр гайхалтай байсан. Энэ нийтлэлд үүнийг боломжтой болгодог хэрэгслүүд болон техникүүдийн талаар ярих болно.
+
+![keyboard](/blog/keyboard_driven/keyboard.svg)
+
+# Яагаад Гарын Товчлуур Дээр Суурилсан?
+
+- **Хурд** - Гар home row дээр байна, context солихгүй
+- **Нарийвчлал** - Гарын командууд яг таарна, товч хайхгүй
+- **Давтагдах чадвар** - Ижил товчлуур, ижил үр дүн
+- **Бага ачаалал** - Хулгана хөдөлгөөн багасна, мөр/бугуйнд бага ачаалал
+
+# Суурь: Vim Motion-ууд
+
+Бүх зүйл vim хэв маягийн навигациас эхэлдэг:
+
+```
+h j k l     Зүүн, Доош, Дээш, Баруун
+w b         Үг урагш, Үг буцах
+0 $         Мөрийн эхэнд, Мөрийн төгсгөлд
+gg G        Файлын дээд, Файлын доод
+Ctrl+d/u    Хагас хуудас доош/дээш
+```
+
+Эдгээр нь muscle memory болмогц та тэдгээрийг хаа сайгүй хүсэх болно.
+
+# Цонх Удирдлага: yabai + skhd
+
+[yabai](https://github.com/koekeishiya/yabai) бол macOS-д зориулсан tiling window manager. [skhd](https://github.com/koekeishiya/skhd) глобал hotkey-үүдийг удирддаг.
+
+## Цонхонд Фокус Хийх
+
+```
+Alt + h         Зүүн цонхонд фокус
+Alt + j         Доод цонхонд фокус
+Alt + k         Дээд цонхонд фокус
+Alt + l         Баруун цонхонд фокус
+```
+
+## Цонх Зөөх
+
+```
+Shift + Alt + h     Зүүн тийш swap
+Shift + Alt + j     Доош swap
+Shift + Alt + k     Дээш swap
+Shift + Alt + l     Баруун тийш swap
+```
+
+## Workspace-үүд
+
+```
+Alt + 1-9           Workspace руу шилжих
+Shift + Alt + 1-9   Цонхыг workspace руу зөөх
+```
+
+## Цонхны Хэмжээ
+
+```
+Alt + f             Fullscreen toggle
+Alt + t             Float toggle
+Alt + e             Бүх цонхыг тэнцүүлэх
+```
+
+Загвар нь тогтвортой: `Alt` фокусд, `Shift + Alt` үйлдэлд.
+
+# Терминал: tmux
+
+Терминал дотор [tmux](/blog/tmux) session болон pane-үүдийг удирддаг.
+
+## Pane Навигаци
+
+```
+Ctrl+b h/j/k/l    Pane хооронд шилжих (vim-tmux-navigator-тай)
+Ctrl+b %          Босоо хуваах
+Ctrl+b "          Хэвтээ хуваах
+Ctrl+b z          Одоогийн pane-ийг zoom хийх
+```
+
+## Window болон Session
+
+```
+Ctrl+b c          Шинэ window
+Ctrl+b n/p        Дараагийн/өмнөх window
+Ctrl+b w          Window сонгогч
+Ctrl+b d          Session салгах
+```
+
+# Засварлагч: Neovim
+
+[Neovim](/blog/neovim) бол vim motion-ууд гэрэлтдэг газар. Би мөн [Lazygit](/blog/lazygit)-ийг `Space + lg` ашиглан git үйлдлүүдэд ашигладаг. Миний хамгийн их ашигладаг keybinding-үүд:
+
+## Навигаци
+
+```
+Space + sf        Файл олох
+Space + sg        Текст grep хийх
+Space + Space     Buffer солих
+Space + e         Файлын мод
+gd                Definition руу очих
+gr                Reference олох
+```
+
+## Засварлах
+
+```
+ciw               Дотор үг солих
+di"               Хашилт доторхыг устгах
+yap               Параграф хуулах
+.                 Сүүлийн өөрчлөлтийг давтах
+u / Ctrl+r        Буцаах / Дахин хийх
+```
+
+## Split-үүд
+
+```
+Ctrl + h/j/k/l    Split хооронд шилжих
+Space + sv        Босоо split
+Space + sh        Хэвтээ split
+```
+
+# Хөтөч: Vimium
+
+[Vimium](https://vimium.github.io/) vim навигацийг хөтөчид авчирдаг:
+
+```
+j/k               Доош/дээш гүйлгэх
+d/u               Хагас хуудас доош/дээш
+f                 Линк hint харуулах (линк дарах)
+F                 Линкийг шинэ tab-д нээх
+o                 URL/хайлт нээх
+b                 Bookmark нээх
+t                 Шинэ tab нээх
+x                 Tab хаах
+X                 Хаасан tab сэргээх
+J/K               Өмнөх/дараагийн tab
+```
+
+Энэ нь хөтөч ашиглахад хулганы ихэнх хэрэглээг арилгадаг.
+
+# Програм Нээгч: Raycast
+
+[Raycast](https://www.raycast.com/) Spotlight-ийг орлож програм нээх болон команд ажиллуулахад ашигладаг:
+
+```
+Cmd + Space       Raycast нээх
+```
+
+Тэндээс хэрэгтэй зүйлээ бичнэ:
+- Програмын нэр бичээд нээх
+- Тооцоолуур
+- Clipboard түүх
+- Цонх удирдлагын команд
+- Тусгай script-үүд
+
+# Оюуны Загвар
+
+Гол санаа бол **тогтвортой байдал**. Бүх хэрэгсэл ижил төстэй загвар ашигладаг:
+
+| Контекст | Фокус | Үйлдэл |
+|----------|-------|--------|
+| yabai | `Alt` | `Shift + Alt` |
+| tmux | `Ctrl+b` + motion | `Ctrl+b` + команд |
+| Neovim | motion товч | `Space` + товч |
+| Хөтөч | `j/k/h/l` | `f` үйлдэлд |
+
+`h/j/k/l`-ийг хөдөлгөөнд суралцсаны дараа энэ нь хаа сайгүй ашиглагддаг.
+
+# Эхлэх
+
+Бүгдийг нэг дор сурах гэж бүү оролд:
+
+1. **1-р долоо хоног** - Засварлагч дээрээ vim motion сур
+2. **2-р долоо хоног** - Хөтөчдөө Vimium нэм
+3. **3-р долоо хоног** - Цонхонд фокус хийхэд yabai/skhd тохируул
+4. **4-р долоо хоног** - Терминал ажлын урсгалдаа tmux нэм
+
+Давхарга бүр өмнөхөөсөө суурилдаг. Эхний удаашрал хурдан үр дүн өгдөг.
+
+# Миний skhd Тохиргоо
+
+Миний skhd тохиргооны гол хэсэг:
+
+```bash
+# Цонхонд фокус хийх
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+
+# Цонх swap хийх
+shift + alt - h : yabai -m window --swap west
+shift + alt - j : yabai -m window --swap south
+shift + alt - k : yabai -m window --swap north
+shift + alt - l : yabai -m window --swap east
+
+# Workspace-үүд
+alt - 1 : yabai -m space --focus 1
+alt - 2 : yabai -m space --focus 2
+alt - 3 : yabai -m space --focus 3
+
+# Workspace руу зөөх
+shift + alt - 1 : yabai -m window --space 1
+shift + alt - 2 : yabai -m window --space 2
+shift + alt - 3 : yabai -m window --space 3
+
+# Хэмжээ
+alt - f : yabai -m window --toggle zoom-fullscreen
+alt - t : yabai -m window --toggle float
+```
+
+Бүрэн тохиргоо миний [dotfiles](/blog/dotfiles) дотор байгаа, [GNU Stow](/blog/gnu_stow) ашиглан удирддаг.
+
+# Үнэ цэнэтэй юу?
+
+Мэдээж. Суралцах муруй бодитой - магадгүй 2-3 долоо хоногийн удаан ажил. Гэхдээ үүний дараа:
+
+- Навигаци шууд болдог
+- Төвөгтэй үйлдлүүд секундэд хийгддэг
+- Давтагдах даалгаврууд алга болдог
+- Таны гар танд баярлах болно
+
+Хулгана муу биш. Гэхдээ терминал болон засварлагч дээр олон цаг өнгөрүүлдэг хөгжүүлэгчдийн хувьд гараа keyboard дээр байлгах нь утга учиртай.

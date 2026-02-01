@@ -22,11 +22,10 @@ I manage my dotfiles with [GNU Stow](/blog/gnu_stow) - check out that post for t
 
 Here's what my setup includes:
 
-- **Neovim** - Primary code editor
-- **tmux** - Terminal multiplexer
+- [**Neovim**](/blog/neovim) - Primary code editor
+- [**tmux**](/blog/tmux) - Terminal multiplexer
 - **Kitty/Ghostty** - Terminal emulators
-- **yabai** - Tiling window manager
-- **skhd** - Hotkey daemon
+- **yabai + skhd** - [Keyboard-driven](/blog/keyboard_driven) window management
 - **Zsh + Oh My Zsh** - Shell environment
 
 # Shell Configuration
@@ -59,14 +58,14 @@ The rest handles version managers: **NVM** for Node.js, **RVM** for Ruby, and **
 
 # Neovim
 
-Neovim is where I spend most of my coding time. My config uses Lua and includes:
+[Neovim](/blog/neovim) is where I spend most of my coding time. My config uses Lua and includes:
 
 - LSP support for multiple languages
 - Telescope for fuzzy finding
 - Treesitter for syntax highlighting
 - Custom keybindings for efficiency
 
-The config lives in `~/.config/nvim/` and is structured for easy maintenance.
+The config lives in `~/.config/nvim/` and is structured for easy maintenance. Check out my [detailed Neovim post](/blog/neovim) for the full breakdown.
 
 # Terminal: Kitty & Ghostty
 
@@ -80,7 +79,7 @@ The theme switching is handled through symlinks - `theme.conf` points to either 
 
 # Window Management: yabai + skhd
 
-On macOS, **yabai** handles automatic window tiling while **skhd** provides system-wide hotkeys.
+On macOS, **yabai** handles automatic window tiling while **skhd** provides system-wide hotkeys. This is part of my [keyboard-driven workflow](/blog/keyboard_driven).
 
 Common shortcuts I use:
 
