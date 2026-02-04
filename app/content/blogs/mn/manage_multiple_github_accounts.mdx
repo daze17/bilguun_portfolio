@@ -1,0 +1,173 @@
+---
+title: "Manage Multiple GitHub Accounts with SSH"
+publishedAt: "2026-02-04"
+summary: "Managing Multiple GitHub Accounts with SSH"
+---
+
+# Managing Multiple GitHub Accounts with SSH
+
+## Problem
+
+When working with both personal and work GitHub accounts on the same machine, you need a way to:
+
+- Authenticate to different GitHub accounts
+- Automatically use the correct SSH key for each repository
+
+## Solution Overview
+
+Create separate SSH keys for each account and configure SSH to use the appropriate key based on a custom host alias.
+
+---
+
+## Setup
+
+### 1. Generate SSH Keys
+
+```bash
+# Work account
+ssh-keygen -t ed25519 -C "your-work-email@company.com" -f ~/.ssh/id_ed25519_work
+
+# Personal account
+ssh-keygen -t ed25519 -C "your-personal-email@example.com" -f ~/.ssh/id_ed25519_personal
+```
+
+### 2. Configure SSH
+
+Create or edit `~/.ssh/config`:
+
+```
+# Work account
+Host github.com-work
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_work
+    IdentitiesOnly yes
+
+# Personal account (default)
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_personal
+    IdentitiesOnly yes
+```
+
+### 3. Add Public Keys to GitHub
+
+Copy each public key and add to the respective GitHub account under **Settings → SSH and GPG keys → New SSH key**.
+
+```bash
+cat ~/.ssh/id_ed25519_work.pub      # Add to work GitHub
+cat ~/.ssh/id_ed25519_personal.pub  # Add to personal GitHub
+```
+
+### 4. Test Connections
+
+```bash
+ssh -T git@github.com-work   # Should show work username
+ssh -T git@github.com        # Should show personal username
+```
+
+---
+
+## Usage
+
+### Cloning Repositories
+
+```bash
+# Work repositories - use the custom host alias
+git clone git@github.com-work:global-trust-networks/gtn-mongolia.git
+
+# Personal repositories - use standard host
+git clone git@github.com:daze17/dotfiles.git
+```
+
+### Converting Existing Repositories
+
+```bash
+# Check current remote
+git remote -v
+
+# Update to work account
+git remote set-url origin git@github.com-work:global-trust-networks/repo-name.git
+```
+
+---
+
+## Git User Configuration
+
+Set different commit identities per repository:
+
+```bash
+# Inside work repo
+git config user.name "Your Name"
+git config user.email "your-work-email@company.com"
+
+# Inside personal repo
+git config user.name "daze17"
+git config user.email "your-personal-email@example.com"
+```
+
+### Directory-Based Config (Optional)
+
+Add to `~/.gitconfig` for automatic configuration by directory:
+
+```ini
+[includeIf "gitdir:~/work/"]
+    path = ~/.gitconfig-work
+
+[includeIf "gitdir:~/personal/"]
+    path = ~/.gitconfig-personal
+```
+
+Then create `~/.gitconfig-work`:
+
+```ini
+[user]
+    name = Your Name
+    email = your-work-email@company.com
+```
+
+And `~/.gitconfig-personal`:
+
+```ini
+[user]
+    name = daze17
+    email = your-personal-email@example.com
+```
+
+---
+
+## SSH Agent Setup (Optional)
+
+Add keys automatically on shell startup. Add to `~/.bashrc` or `~/.zshrc`:
+
+```bash
+# Start ssh-agent if not running
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    eval "$(ssh-agent -s)"
+fi
+
+# Add keys
+ssh-add ~/.ssh/id_ed25519_work 2>/dev/null
+ssh-add ~/.ssh/id_ed25519_personal 2>/dev/null
+```
+
+---
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| `Permission denied (publickey)` | Verify key is added to ssh-agent: `ssh-add ~/.ssh/id_ed25519_work` |
+| Wrong account used | Check remote URL matches intended host alias: `git remote -v` |
+| Key not found | Ensure `IdentitiesOnly yes` is set in SSH config |
+| Agent not running | Start agent: `eval "$(ssh-agent -s)"` |
+
+---
+
+## Quick Reference
+
+| Account | Host Alias | Clone Example |
+|---------|------------|---------------|
+| Work | `github.com-work` | `git@github.com-work:org/repo.git` |
+| Personal | `github.com` | `git@github.com:user/repo.git` |
