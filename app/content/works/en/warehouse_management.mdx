@@ -1,0 +1,103 @@
+---
+title: 'Store & Warehouse Inventory Management System'
+publishedAt: '2026-05-10'
+summary: "An integrated inventory management system for Mongolian SMEs, unifying warehouse and store operations with role-based access and a digital transfer-authorization workflow."
+image: '/work/wms/dashboard.png'
+stacks: NestJS, Next.js 15, TypeScript, PostgreSQL 17, Drizzle ORM, Turborepo, JWT, Passport.js, Docker,
+url: 'https://warehouse-management-frontend-orpin.vercel.app/'
+---
+
+## Overview
+
+<img src="/work/wms/wms-logo-wide.png" alt="logo" style={{ width: '50%' }} />
+
+A web-based inventory management system designed for Mongolian small and medium enterprises that operate both a central warehouse and one or more retail stores. The system unifies stock tracking, transfer authorization, and sales reporting under a single role-aware interface so that owners stop relying on paper logs, scattered Excel files, and chat messages to keep stock counts honest.
+
+## Problem
+
+Mongolian SMEs that run both warehouses and stores typically manage inventory manually. Stock levels live in notebooks or workbooks that go out of sync the moment a transfer or sale happens; transfer requests travel through Messenger or phone calls; and there is no audit trail when numbers don't add up at month-end.
+
+The concrete pain points the system set out to solve:
+
+- **Resource discrepancies** between what the warehouse thinks it shipped and what the store thinks it received
+- **Human error** in repeatedly transcribing the same transfer across paper, spreadsheet, and chat
+- **Lagged information** — owners don't see the real stock state until someone manually compiles it
+- **No audit trail**, so when discrepancies appear, there is no way to reconstruct who moved what, when, or under whose authorization
+
+## Research
+
+A survey of existing inventory systems used regionally and globally — Oracle WMS, Odoo, and the locally-developed Veritech — found that none of them fit Mongolian SMEs cleanly. The international systems are priced and scoped for enterprises with dedicated logistics teams; the local options solve either warehouse or retail but rarely the seam between them, which is exactly where SMEs lose stock. This system positions itself in that gap: it treats the warehouse↔store handoff as a first-class workflow rather than as two disconnected modules.
+
+## System Design
+
+The system is structured as a three-tier web application:
+
+- **Presentation tier** — Next.js 15 (App Router) frontend, server-rendered, mobile-responsive, Mongolian-language UI
+- **Business logic tier** — NestJS REST API protected by JWT and Passport.js, with role-based access control (RBAC) gating every endpoint
+- **Data tier** — PostgreSQL 17 accessed through Drizzle ORM, with an audit table that records every state-changing action
+
+Three user roles are wired through RBAC end-to-end:
+
+- **Admin** — provisions warehouses, stores, and users; sees everything
+- **Warehouse Manager** — manages stock at a specific warehouse and initiates transfers to stores
+- **Store Manager** — receives transfers, records sales, and reports back to their store's stock
+
+The transfer workflow is the design centerpiece: a transfer is a stateful object that the warehouse manager creates, the store manager confirms on receipt, and the system writes to the audit log on every transition — replacing the chat-message handoff with a digital signature trail.
+
+![System architecture diagram](/work/warehouse_inventory/system_architecture.png)
+
+## Tech Stack
+
+- **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS
+- **Backend**: NestJS (REST API), TypeScript, JWT + Passport.js for auth
+- **Database**: PostgreSQL 17 with Drizzle ORM
+- **Build**: Turborepo monorepo, pnpm workspaces
+- **Infrastructure**: Docker for local development; deployable as containerized services
+
+## Implementation
+
+The NestJS backend is split into seven modules, each owning its own controllers, services, and Drizzle schemas:
+
+- **Auth** — login, JWT issuance, password hashing
+- **Users** — user CRUD scoped by role
+- **Warehouses** — warehouse provisioning and stock state
+- **Stores** — store provisioning and stock state
+- **Transfers** — the warehouse↔store transfer state machine
+- **Sales** — point-of-sale entry from the store side
+- **Audit** — append-only log of every state-changing action across the other six modules
+
+The repository is a Turborepo monorepo so the backend, frontend, and shared TypeScript types live in one place and build together:
+
+```
+warehouse-inventory/
+├── apps/
+│   ├── api/        # NestJS REST API
+│   └── web/        # Next.js 15 app
+├── packages/
+│   ├── db/         # Drizzle schema + migrations
+│   └── shared/     # Shared types and DTOs
+└── turbo.json
+```
+
+## Results
+
+The delivered system covers the full warehouse-to-store loop:
+
+- Multi-warehouse, multi-store unified stock view in one dashboard
+- Digital transfer authorization replacing chat-and-paper handoffs
+- Automated audit logging on every state change, queryable by user, date, or entity
+- Three role-tailored UIs — admin, warehouse, and store — sharing one component library
+- Mobile-responsive layouts (login, sidebar, tables) so store managers can use it on a phone
+- Mongolian-language interface throughout
+
+![transfer 1](/work/wms/transfer_step_1.png)
+
+
+![transfer 2](/work/wms/transfer_step_2.png)
+
+
+![transfer 3](/work/wms/transfer_step_3.png)
+
+## Conclusion
+
+The project is an exercise in scoping software to a specific market: small Mongolian businesses that need an audit trail more than they need configurability. The next step is moving from a single-tenant deployment toward a multi-tenant SaaS, plus expanding the audit module into a full reporting layer.
