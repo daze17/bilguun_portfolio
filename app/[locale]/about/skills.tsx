@@ -2,7 +2,7 @@ import { FaAws, FaGhost } from "react-icons/fa";
 import {
   SiApple,
   SiBun,
-  SiCss3,
+  SiCss,
   SiDocker,
   SiExpress,
   SiFigma,
@@ -32,7 +32,7 @@ import { cn } from "@/utils";
 const groupedSkills = {
   Languages: [
     { name: "HTML", icon: <SiHtml5 />, color: "#E34F26" },
-    { name: "CSS", icon: <SiCss3 />, color: "#1572B6" },
+    { name: "CSS", icon: <SiCss />, color: "#1572B6" },
     {
       name: "JavaScript",
       icon: <SiJavascript />,
